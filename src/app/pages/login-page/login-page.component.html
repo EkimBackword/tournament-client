@@ -1,3 +1,20 @@
-<p>
-  login-page works!
-</p>
+<div class="wrapper">
+  <div class="content mat-elevation-z4">
+    <div class="content__img"></div>
+    <div class="content__hello">
+      <h3>Добро пожаловать</h3>
+    </div>
+    <div class="content__body">
+      <mat-form-field appearance="outline">
+        <mat-label>Логин</mat-label>
+        <input matInput placeholder="Логин" [(ngModel)]="login">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input matInput placeholder="Пароль" type="password" [(ngModel)]="password">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="Login()">Вход</button>
+    </div>
+  </div>
+
+</div>

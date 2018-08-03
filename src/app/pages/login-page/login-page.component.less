@@ -1,0 +1,62 @@
+@import "../../../variables.less";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        height: 640px;
+        width: 430px;
+        border-radius: 4px;
+        background-color: darken(@background-brown-dark, 16%);
+    }
+}
+
+.content__img {
+    height: 330px;
+    width: 430px;
+    border-radius: 4px 4px 0 0;
+
+    .bgcover('assets/img/card-hearthstone.jpg');
+    // background-attachment: fixed;
+    background-position: top center;
+}
+.content__hello {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+
+    color: @color-text-yellow;
+    text-shadow: 1px 1px 1px @color-text-black-hover;
+}
+.content__body {
+    background-color: @background-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+    flex-shrink: 0;
+
+    padding: 16px;
+    border-radius: 0 0 4px 4px;
+}

@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { PagesModule } from './pages/pages.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AppInterceptor } from './services/interceptor';
+import { UserService } from './services/user.service';
+import { TournamentService } from './services/tournament.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +16,18 @@ import { PagesModule } from './pages/pages.module';
   imports: [
     BrowserModule,
     SharedModule,
-    PagesModule
+    PagesModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
+    },
+    UserService,
+    TournamentService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
