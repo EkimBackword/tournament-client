@@ -1,0 +1,80 @@
+@import "../../../variables.less";
+
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+    border-radius: 2px;
+}
+
+.snack-bar-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 2px;
+
+    .snack-bar__icon {
+        padding-left: 16px;
+
+        mat-icon {
+            @custom-icon-size: 36px;
+            width: @custom-icon-size;
+            height: @custom-icon-size;
+            font-size: @custom-icon-size;
+            line-height: @custom-icon-size;
+        }
+    }
+    
+    .snack-bar__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 8px 16px;
+        
+        .snack-bar__title {
+            font-size: 14px;
+            font-weight: 700;
+            color: @color-text-black-hover;
+
+            padding: 0 0 .6em;
+            margin: 0;
+        }
+    
+        .snack-bar__info {
+            font-size: 14px;
+            font-weight: 400;
+            color: @color-text-black;
+
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+.snack-bar-wrapper--success {
+    background-color: @color-massage-success;
+    color: @color-text-black;
+    button {
+        color: @color-text-black;
+    }
+}
+.snack-bar-wrapper--warn {
+    background-color: @color-massage-warning;
+    color: @color-text-black;
+    button {
+        color: @color-text-black;
+    }
+}
+.snack-bar-wrapper--error {
+    background-color: @color-massage-danger;
+    color: @color-text-black;
+    button {
+        color: @color-text-black;
+    }
+}
+

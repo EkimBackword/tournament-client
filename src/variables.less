@@ -1,0 +1,66 @@
+
+// background colors
+@background-white: #FBFCFE;
+@background-yellow: #F1D089;
+@background-brown: #CCA55F;
+@background-brown-dark: #A06C31;
+
+
+// blue as primary
+@color-blue: #40A4FE;
+@color-blue-hover: #307DFB;
+
+// massage color (light color)
+@color-massage-info: #7fbcec;
+@color-massage-danger: #f8b7bd;
+@color-massage-warning: #ffe399;
+@color-massage-success: #b7d8b7;
+@color-massage-grey: #d1d6dc;
+
+// text colors
+@color-text-white: @background-white;
+@color-text-black: #443D2F;
+@color-text-black-hover: darken(@color-text-black, 8%);
+
+// State Colors
+@color-success: #34a835;
+@color-success-hover: darken(@color-success, 8%);
+@color-warning: #ffba01;
+@color-warning-hover: darken(@color-warning, 8%);
+@color-danger: #e91224;
+@color-danger-hover: darken(@color-danger, 8%);
+@color-grey: #9aa1aa;
+@color-grey-hover: darken(@color-grey, 8%);
+
+// Heading
+@font-size-h1: 2.5rem;
+@font-size-h2: 2rem;
+@font-size-h3: 1.75rem;
+@font-size-h4: 1.5rem;
+@font-size-h5: 1.25rem;
+@font-size-h6: 1rem;
+
+// Basic text
+@font-size: 1rem;
+@font-weight: 300;
+@font-weight-bold: 400;
+@font-weight-bolder: 500;
+@font-weight-boldest: 600;
+
+.bgcover (@url: "/img/bg.jpg") {
+	background: url(@url) no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.title() {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.subtitle() {
+  font-weight: 300;
+  font-size: 18px;
+}
