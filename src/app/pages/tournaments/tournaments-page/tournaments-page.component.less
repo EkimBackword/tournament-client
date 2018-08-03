@@ -1,0 +1,133 @@
+@import "../../../../variables.less";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: stretch;
+
+    margin-bottom: 24px;
+    background-color: @background-white;
+    padding: 0 140px;
+    height: 70px;
+    position: relative;
+    z-index: 100;
+
+    .bgcover('/assets/img/wood/wood_middle_repeat.png');
+
+
+    .header__element {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+
+        position: relative;
+        cursor: pointer;
+        z-index: 300;
+        padding: 8px 16px;
+
+        color: fade(@color-text-yellow, 87%);
+        text-shadow: 2px 2px 2px @color-text-black-hover;
+
+        
+
+        &.header__element--with-hover:hover {
+            background-color: fade(@color-text-black-hover, 35%);
+            color: @color-text-yellow;
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                bottom: 0px;
+                height: 4px;
+                z-index: 300;
+                background-color: @color-text-yellow;
+            }
+        }
+    }
+
+    .divider {
+        width: 5px;
+        height: 60px;
+        z-index: 300;
+        margin: 5px 2px;
+        .bgcover('/assets/img/wood/divider.png');
+    }
+    .logo {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 24px;
+        width: 70px;
+        height: 70px;
+        z-index: 300;
+        .bgcover('/assets/img/logo/logo_small.png');
+    }
+
+    &::after, &::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        width: 132px;
+        z-index: 200;
+    }
+    &::before {
+        left: 0px;
+        .bgcover('/assets/img/wood/wood_left.png');
+    }
+    &::after {
+        right: 0px;
+        .bgcover('/assets/img/wood/wood_right.png');
+    }
+}
+.body {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    
+    .body__user {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        background-color: @background-white;
+        width: 500px;
+        margin: 24px;
+        padding: 8px 16px;
+    }
+    
+    .body__main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex: 1 1 auto;
+
+        background-color: @background-white;
+        margin: 24px;
+        padding: 8px 16px;
+    }
+}
