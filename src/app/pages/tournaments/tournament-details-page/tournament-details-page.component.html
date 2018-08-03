@@ -1,3 +1,16 @@
-<p>
-  tournament-details-page works!
-</p>
+<div>
+    <h3>Группы</h3>
+    <app-brackets *ngFor="let group of data.groups"
+        [canEdit]="canEdit"
+        [data]="group.data"
+        [groupName]="group.name"
+        [typeBracket]="'group'"
+        (OnChange)="SaveOnChange($event, group)"
+    ></app-brackets>
+</div>
+<div>
+    <h3>Плай-офф</h3>
+    <app-brackets  [canEdit]="canEdit" [data]="data.playoff" [typeBracket]="'single'"
+        (OnChange)="SaveOnChange($event, data.playoff)"
+    ></app-brackets>
+</div>

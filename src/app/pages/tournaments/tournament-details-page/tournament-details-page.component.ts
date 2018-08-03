@@ -7,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TournamentDetailsPageComponent implements OnInit {
 
+  data: any;
+  canEdit = false;
+
+  singleData = {
+    teams: [ [null, null], [null, null] ],
+    results: [[ [], [] ]]
+  };
+
+  doubleData = {
+    teams: [ [null, null], [null, null] ],
+    results: [[[[]]], [], []]
+  };
+
   constructor() { }
 
   ngOnInit() {
+    this.data = {
+      groups: [
+        { name: 'A', data: this.doubleData },
+        { name: 'B', data: this.doubleData },
+      ],
+      playoff: this.singleData
+    };
   }
 
+  SaveOnChange(data, item) {
+    console.log(data, item);
+  }
 }

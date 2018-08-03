@@ -37,10 +37,25 @@ export class TournamentsListPageComponent implements OnInit {
     this.tournamentsInfo = await this.tournamentService.getList();
   }
 
-  async addTournament() {
+  async addTournament(element: HTMLInputElement) {
     try {
-      const tournamentId = await this.tournamentService.createTournament('title', JSON.stringify({}));
+      const tournamentId = await this.tournamentService.createTournament(element.value || 'title', JSON.stringify({}));
       this.router.navigate([`/tournaments/${tournamentId}`]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async goToTournament(tournament: ITournament) {
+    try {
+      this.router.navigate([`/tournaments/${tournament.ID}`]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async deleteTournament(tournament: ITournament) {
+    try {
+      await this.tournamentService.deleteTournament(tournament.ID);
+      this.load();
     } catch (err) {
       console.log(err);
     }

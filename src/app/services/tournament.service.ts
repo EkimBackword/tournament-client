@@ -20,7 +20,21 @@ export class TournamentService {
 
   public async createTournament(Title: string, JsonData: string) {
     try {
-        return await this.http.post<ITournament>(`${environment.backendUrl}/tournament/add`, { Title, JsonData }).toPromise();
+        return await this.http.post<number>(`${environment.backendUrl}/tournament/add`, { Title, JsonData }).toPromise();
+    } catch (e) {
+        throw e;
+    }
+  }
+  public async upadeteTournament(ID: number, Title: string, JsonData: string) {
+    try {
+        return await this.http.post<void>(`${environment.backendUrl}/tournament/${ID}/edit`, { Title, JsonData }).toPromise();
+    } catch (e) {
+        throw e;
+    }
+  }
+  public async deleteTournament(ID: number) {
+    try {
+        return await this.http.delete(`${environment.backendUrl}/tournament/${ID}`).toPromise();
     } catch (e) {
         throw e;
     }

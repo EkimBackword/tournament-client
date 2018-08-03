@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: stretch;
+    align-items: flex-start;
     flex: 1 1 auto;
 
     padding: 8px;
@@ -26,7 +26,6 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    flex: 1 1 auto;
 }
 
 .tournament__item {
@@ -34,21 +33,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
-    width: 275px;
-    height: 150px;
+    width: 320px;
+    height: 175px;
     margin: 8px;
-    background-color: fade(@background-brown, 50%);
+    background-color: fade(@background-brown, 35%);
     
     &:hover {
-        background-color: @background-brown;
-        span {
-            color: @color-text-yellow;
-        }
+        background-color: fade(@background-brown, 50%);
     }
 
     img {
-        height: 100px;
+        max-height: 100px;
+        max-width: 200px;
     }
 
     span {
@@ -56,26 +54,25 @@
         color: @background-brown-dark;
     }
 
+    .tournament__item--delete {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+
     &.tournament__item--add {
-        background-color: @background-brown;
+        background-color: fade(@background-brown, 50%);
 
         mat-icon {
-            width: 36px;
-            height: 36px;
-            font-size: 36px;
-            font-weight: 600;
-            line-height: 36px;
             color: @background-white;
         }
         
         &:hover {
-            background-color: @background-brown-dark;
+            background-color: fade(@background-brown, 60%);
+            button {
+                color: @color-text-yellow;
+            }
             mat-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 36px;
-                font-weight: 600;
-                line-height: 36px;
                 color: @color-text-yellow;
             }
         }
