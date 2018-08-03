@@ -114,12 +114,11 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: stretch;
 
         background-color: @background-white;
-        width: 500px;
+        width: 430px;
         margin: 24px;
-        padding: 8px 16px;
     }
     
     .body__main {
@@ -133,4 +132,50 @@
         margin: 24px;
         padding: 8px 16px;
     }
+}
+
+.body__user {
+    .body-user__img {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        height: 330px;
+        width: 430px;
+        position: relative;
+        background: @background-brown-dark;
+        z-index: 500;
+
+        .img {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: @background-brown-dark;
+            z-index: 500;
+        }
+
+        img {
+            height: 330px;
+            z-index: 500;
+        }
+        
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            .bgcover('assets/img/card-hearthstone.jpg');
+            background-position: top center;
+            z-index: 200;
+            opacity: .5;
+        }
+    }
+    .body-user__name {
+        
+    }
+
 }
