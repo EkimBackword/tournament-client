@@ -125,16 +125,18 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: stretch;
+        align-self: stretch;
         flex: 1 1 auto;
 
         background-color: @background-white;
         margin: 24px;
-        padding: 8px 16px;
     }
 }
 
 .body__user {
+    border-radius: 4px;
+
     .body-user__img {
         display: flex;
         flex-direction: column;
@@ -143,6 +145,7 @@
 
         height: 330px;
         width: 430px;
+        border-radius: 4px 4px 0 0;
         position: relative;
         background: @background-brown-dark;
         z-index: 500;
@@ -152,7 +155,9 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            background: @background-brown-dark;
+
+            border-radius: 4px 4px 0 0;
+            background: @background-brown;
             z-index: 500;
         }
 
@@ -168,6 +173,8 @@
             left: 0px;
             right: 0px;
             bottom: 0px;
+
+            border-radius: 4px 4px 0 0;
             .bgcover('assets/img/card-hearthstone.jpg');
             background-position: top center;
             z-index: 200;
@@ -175,7 +182,34 @@
         }
     }
     .body-user__name {
-        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        background-color: @background-brown-dark;
+        color: @color-text-yellow;
+        padding: 16px 0;
+        h3 {
+            font-weight: 700;
+            text-shadow: 1px 1px 1px @color-text-black;
+        }
+    }
+    .body-user__actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        padding: 16px;
+        border-radius: 0 0 4px 4px;
+
+        button {
+            margin-bottom: 8px;
+        }
+        button:last-child {
+            margin-bottom: 0px;
+        }
     }
 
 }

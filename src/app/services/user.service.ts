@@ -29,10 +29,13 @@ export class UserService {
   public async GetProfile(option?: { withTournaments?: boolean }) {
       try {
           const url = `${environment.backendUrl}/user/profile`;
-          const params = Object.keys(option).reduce((_params, key) => {
-            _params[key] = option[key].toString();
-            return _params;
-          }, {});
+          let params = {};
+          if (option) {
+            params = Object.keys(option).reduce((_params, key) => {
+              _params[key] = option[key].toString();
+              return _params;
+            }, {});
+          }
           return await this.http.get<IUser>(url, { params }).toPromise();
       } catch (e) {
           return null;

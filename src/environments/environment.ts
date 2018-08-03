@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://api.tavern.mzharkov.ru'
+  backendUrl: 'http://localhost:30123'
 };
 
 /*

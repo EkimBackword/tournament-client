@@ -1,0 +1,115 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$black-87-opacity: rgba(0, 0, 0, 0.87);
+$white: #FBFCFE;
+
+$mat-primary: (
+  50: #efebe9,
+  100: #d7ccc8,
+  200: #bcaaa4,
+  300: #a1887f,
+  400: #8d6e63,
+  500: #795548, // primary
+  600: #6d4c41,
+  700: #5d4037,
+  800: #4e342e,
+  900: #3e2723,
+  A100: #FFD180,
+  A200: #FFAB40,
+  A400: #FF9100,
+  A700: #FF6D00,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $white,
+    400: $white,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: $black-87-opacity,
+  )
+);
+
+$mat-accent: (
+  50: #E8EAF6,
+  100: #C5CAE9,
+  200: #9FA8DA,
+  300: #7986CB,
+  400: #5C6BC0,
+  500: #3F51B5,
+  600: #3949AB,
+  700: #303F9F,
+  800: #283593,
+  900: #1A237E,
+  A100: #8C9EFF,
+  A200: #536DFE,
+  A400: #3D5AFE,
+  A700: #304FFE,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $white,
+    400: $white,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white,
+    A100: $black-87-opacity,
+    A200: $white,
+    A400: $white,
+    A700: $white,
+  )
+);
+
+$mat-red: (
+  50: #ffebee,
+  100: #ffcdd2,
+  200: #ef9a9a,
+  300: #e57373,
+  400: #ef5350,
+  500: #f44336,
+  600: #e53935,
+  700: #d32f2f,
+  800: #c62828,
+  900: #b71c1c,
+  A100: #ff8a80,
+  A200: #ff5252,
+  A400: #ff1744,
+  A700: #d50000,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $white,
+    A400: $white,
+    A700: $white,
+  )
+);
+
+$custom-theme-primary: mat-palette($mat-primary);
+$custom-theme-accent: mat-palette($mat-accent, A200, A100, A400);
+$custom-theme-warn: mat-palette($mat-red);
+
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+@include angular-material-theme($custom-theme);

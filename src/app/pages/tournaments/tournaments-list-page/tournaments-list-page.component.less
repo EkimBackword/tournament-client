@@ -1,0 +1,83 @@
+@import "../../../../variables.less";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+
+    padding: 8px;
+    overflow: auto;
+}
+
+.tournament__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1 1 auto;
+}
+
+.tournament__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 275px;
+    height: 150px;
+    margin: 8px;
+    background-color: fade(@background-brown, 50%);
+    
+    &:hover {
+        background-color: @background-brown;
+        span {
+            color: @color-text-yellow;
+        }
+    }
+
+    img {
+        height: 100px;
+    }
+
+    span {
+        font-weight: 600;
+        color: @background-brown-dark;
+    }
+
+    &.tournament__item--add {
+        background-color: @background-brown;
+
+        mat-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 36px;
+            color: @background-white;
+        }
+        
+        &:hover {
+            background-color: @background-brown-dark;
+            mat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 36px;
+                font-weight: 600;
+                line-height: 36px;
+                color: @color-text-yellow;
+            }
+        }
+    }
+}

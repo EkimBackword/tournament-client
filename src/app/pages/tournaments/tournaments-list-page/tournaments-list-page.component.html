@@ -1,3 +1,14 @@
-<p>
-  tournaments-list-page works!
-</p>
+<div class="wrapper">
+  <div class="tournament__list" *ngIf="tournamentsInfo && tournamentsInfo.result">
+    <div class="tournament__item mat-elevation-z1" *ngFor="let item of tournamentsInfo.result">
+      <img src="assets/img/43-49e38d177a7f7b668950e5bb47f2c7cb9a8f9fd299b6ab9729f508b0faffe756d2cb2587b0c8f67ace30fa2936383a8754b6459b9eb8dace5a9e1f286c25160e.png" alt="battle">
+      <span>{{item.Title}}</span>
+    </div>
+    <div class="tournament__item mat-elevation-z1 tournament__item--add"
+        *ngIf="profile !== null"
+        (click)="addTournament()"
+    >
+      <mat-icon>add</mat-icon>
+    </div>
+  </div>
+</div>

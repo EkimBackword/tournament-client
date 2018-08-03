@@ -18,13 +18,18 @@
     <div class="body__user mat-elevation-z4">
       <div class="body-user__img">
         <div class="img">
-          <img src="assets/img/43-49e38d177a7f7b668950e5bb47f2c7cb9a8f9fd299b6ab9729f508b0faffe756d2cb2587b0c8f67ace30fa2936383a8754b6459b9eb8dace5a9e1f286c25160e.png" alt="hearthstone">
+          <img *ngIf="profile !== null" src="assets/img/43-49e38d177a7f7b668950e5bb47f2c7cb9a8f9fd299b6ab9729f508b0faffe756d2cb2587b0c8f67ace30fa2936383a8754b6459b9eb8dace5a9e1f286c25160e.png" alt="hearthstone">
         </div>
       </div>
       <div class="body-user__name">
         <h3 *ngIf="profile !== null">{{profile.FIO }}</h3>
         <h3 *ngIf="profile === null">Гость</h3>
-      </div>      
+      </div>
+      <div class="body-user__actions">
+        <button mat-raised-button color="primary" *ngIf="profile !== null">Добавить турнир</button>
+        <button mat-raised-button color="warn" *ngIf="profile !== null" (click)="logout()">Выход</button>
+        <button mat-raised-button color="accent" *ngIf="profile === null" routerLink="/login" routerLinkActive="active">Вход</button>
+      </div>
     </div>
 
     <div class="body__main mat-elevation-z4">
