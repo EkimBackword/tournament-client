@@ -6,6 +6,7 @@
     justify-content: flex-start;
     align-items: center;
     flex: 1 1 auto;
+    width: 100%;
     overflow: auto;
 }
 
@@ -44,6 +45,7 @@
     justify-content: center;
     align-items: center;
     padding: 8px 0;
+    flex-shrink: 0;
 
     color: @color-text-yellow;
     text-shadow: 1px 1px 1px @color-text-black-hover;
@@ -65,4 +67,23 @@
         margin-bottom: 0px;
         color: @background-brown;
     }
+}
+
+@media (max-width: @screen-medium) {
+
+}
+@media (max-width: @screen-small) {
+    .wrapper {
+        width: 100%;
+        .content {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .content__img {
+        width: 100%;
+
+    }
+    
 }
