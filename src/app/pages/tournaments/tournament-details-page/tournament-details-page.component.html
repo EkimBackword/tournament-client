@@ -1,4 +1,15 @@
-<div>
+<div class="header">
+    <button mat-raised-button color="primary" (click)="goToTournamentsList()">К списку турниров</button>
+    <div class="tournament-info">
+        <h2>Название: {{tournament.Title}}</h2>
+        <span>Организатор: {{tournament.User.FIO}}</span>
+    </div>
+</div>
+<div class="actions" *ngIf="profile !== null && profile.ID === tournament.UserID">
+    <button mat-raised-button color="primary" (click)="addGroup()">Добавить группу</button>
+    <button mat-raised-button color="primary" (click)="removeGroup()">Удалить группу</button>
+</div>
+<div *ngIf="data.groups && data.groups.length > 0">
     <h3>Группы</h3>
     <app-brackets *ngFor="let group of data.groups"
         [canEdit]="profile !== null && profile.ID === tournament.UserID"
@@ -8,7 +19,7 @@
         (OnChange)="SaveOnChange($event, group, 'group')"
     ></app-brackets>
 </div>
-<div>
+<div *ngIf="data.playoff">
     <h3>Плай-офф</h3>
     <app-brackets  [canEdit]="profile !== null && profile.ID === tournament.UserID" [data]="data.playoff" [typeBracket]="'single'"
         (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"

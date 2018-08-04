@@ -39,6 +39,9 @@ export class TournamentDetailsPageComponent implements OnInit {
       this.load();
     });
   }
+  goToTournamentsList() {
+    this.router.navigate(['/tournaments']);
+  }
   async load() {
     this.profile = await this.userService.GetProfile();
     this.tournament = await this.tournamentService.getTournament(this.tournamentId, true);
@@ -51,31 +54,23 @@ export class TournamentDetailsPageComponent implements OnInit {
         ],
         playoff: this.singleData
       };
-      await this.tournamentService.upadeteTournament(
-        this.tournamentId,
-        this.tournament.Title,
-        JSON.stringify(this.data)
-      );
+      await this.updateTournament();
     }
   }
+  private async updateTournament() {
+    await this.tournamentService.upadeteTournament(this.tournamentId, this.tournament.Title, JSON.stringify(this.data));
+  }
+
   async addGroup() {
     const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z' ];
     if (this.data.groups.length === symbols.length) { return; }
     this.data.groups.push({ name: symbols[this.data.groups.length], data: this.doubleData });
-    await this.tournamentService.upadeteTournament(
-      this.tournamentId,
-      this.tournament.Title,
-      JSON.stringify(this.data)
-    );
+    await this.updateTournament();
   }
 
-  async remove() {
+  async removeGroup() {
     this.data.groups.pop();
-    await this.tournamentService.upadeteTournament(
-      this.tournamentId,
-      this.tournament.Title,
-      JSON.stringify(this.data)
-    );
+    await this.updateTournament();
   }
 
   async SaveOnChange(data: any, item: any, type: 'playoff' | 'group') {
@@ -86,12 +81,7 @@ export class TournamentDetailsPageComponent implements OnInit {
       this.data.playoff = data;
     }
     item = data;
-    await this.tournamentService.upadeteTournament(
-      this.tournamentId,
-      this.tournament.Title,
-      JSON.stringify(this.data)
-    );
-    console.log(this.data);
+    await this.updateTournament();
   }
 }
 
