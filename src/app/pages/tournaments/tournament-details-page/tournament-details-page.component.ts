@@ -58,6 +58,25 @@ export class TournamentDetailsPageComponent implements OnInit {
       );
     }
   }
+  async addGroup() {
+    const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z' ];
+    if (this.data.groups.length === symbols.length) { return; }
+    this.data.groups.push({ name: symbols[this.data.groups.length], data: this.doubleData });
+    await this.tournamentService.upadeteTournament(
+      this.tournamentId,
+      this.tournament.Title,
+      JSON.stringify(this.data)
+    );
+  }
+
+  async remove() {
+    this.data.groups.pop();
+    await this.tournamentService.upadeteTournament(
+      this.tournamentId,
+      this.tournament.Title,
+      JSON.stringify(this.data)
+    );
+  }
 
   async SaveOnChange(data: any, item: any, type: 'playoff' | 'group') {
     if (type === 'group') {
