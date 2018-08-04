@@ -146,36 +146,6 @@
     }
 }
 
-@media (max-width: @screen-medium) {
-    .body {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        
-        overflow: auto;
-
-        .body__user {
-            flex-shrink: 0;
-            align-self: center;
-        }
-        .body__main {
-            flex-shrink: 0;
-            min-height: 500px;
-        }
-    }
-}
-@media (max-width: @screen-small) {
-
-}
-
-
-
-
-
-
-
-
 .body__user {
     border-radius: 4px;
 
@@ -254,4 +224,84 @@
         }
     }
 
+}
+
+@media (max-width: @screen-medium) {
+    .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        
+        overflow: auto;
+
+        .body__user {
+            flex-shrink: 0;
+            align-self: center;
+        }
+        .body__main {
+            flex-shrink: 0;
+            min-height: 500px;
+        }
+    }
+}
+@media (max-width: @screen-small) {
+    .body {
+       
+        .body__user {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+    
+            background-color: @background-white;
+            width: 100%;
+            margin: 8px;
+        }
+        
+        .body__main {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-self: stretch;
+            flex: 1 1 auto;
+    
+            background-color: @background-white;
+            margin: 8px;
+        }
+    }
+
+    .body__user {
+        border-radius: 0px;
+    
+        .body-user__img {
+            width: 100%;
+            border-radius: 0px;
+            .img {
+                border-radius: 0px;
+            }
+            img {
+                width: 100%;
+            }
+            
+            &::after {
+                border-radius: 0;
+            }
+        }
+
+        .body-user__actions {
+    
+            padding: 8px;
+            border-radius: 0px;
+    
+            button {
+                margin-bottom: 8px;
+            }
+            button:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    
+    }
 }
