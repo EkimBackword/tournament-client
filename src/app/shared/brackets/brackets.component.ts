@@ -106,7 +106,6 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   protected _loadBracket() {
-    console.log(this.parameters);
     $(`#minimal--${this.guid} .demo`).empty();
     this.bracket = $(`#minimal--${this.guid} .demo`).bracket(this.parameters);
   }

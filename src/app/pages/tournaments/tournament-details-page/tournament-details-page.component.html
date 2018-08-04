@@ -1,16 +1,16 @@
 <div>
     <h3>Группы</h3>
     <app-brackets *ngFor="let group of data.groups"
-        [canEdit]="canEdit"
+        [canEdit]="profile !== null && profile.ID === tournament.UserID"
         [data]="group.data"
         [groupName]="group.name"
         [typeBracket]="'group'"
-        (OnChange)="SaveOnChange($event, group)"
+        (OnChange)="SaveOnChange($event, group, 'group')"
     ></app-brackets>
 </div>
 <div>
     <h3>Плай-офф</h3>
-    <app-brackets  [canEdit]="canEdit" [data]="data.playoff" [typeBracket]="'single'"
-        (OnChange)="SaveOnChange($event, data.playoff)"
+    <app-brackets  [canEdit]="profile !== null && profile.ID === tournament.UserID" [data]="data.playoff" [typeBracket]="'single'"
+        (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"
     ></app-brackets>
 </div>

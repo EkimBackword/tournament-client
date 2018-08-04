@@ -39,6 +39,14 @@ export class TournamentService {
         throw e;
     }
   }
+  public async getTournament(ID: number, withUser?: boolean) {
+    try {
+      const params = withUser ? { withUser: '1' } : {};
+        return await this.http.get<ITournament>(`${environment.backendUrl}/tournament/${ID}`, { params }).toPromise();
+    } catch (e) {
+        throw e;
+    }
+  }
 }
 
 export interface ITournament {

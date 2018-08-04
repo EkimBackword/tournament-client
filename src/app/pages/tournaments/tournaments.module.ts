@@ -11,7 +11,7 @@ const tournamentsRoutes: Routes = [
   { path: 'tournaments', component: TournamentsPageComponent,
     children: [
       { path: '', component: TournamentsListPageComponent },
-      { path: ':tournamemtId', component: TournamentDetailsPageComponent }
+      { path: ':tournamentId', component: TournamentDetailsPageComponent }
     ]
   },
 ];

@@ -7,12 +7,16 @@ import { ITournament } from './tournament.service';
   providedIn: 'root'
 })
 export class UserService {
+  private user: IUser;
 
   constructor(private http: HttpClient) {}
 
   public async LogIn(Login, Password) {
     try {
-        return await this.http.post<IUser>(`${environment.backendUrl}/user/login`, { Login, Password }).toPromise();
+      if (this.user === void 0 || this.user === null) {
+        this.user = await this.http.post<IUser>(`${environment.backendUrl}/user/login`, { Login, Password }).toPromise();
+      }
+      return this.user;
     } catch (e) {
         throw e;
     }
@@ -20,7 +24,8 @@ export class UserService {
 
   public async LogOut() {
     try {
-        return await this.http.get(`${environment.backendUrl}/user/logout`).toPromise();
+      await this.http.get(`${environment.backendUrl}/user/logout`).toPromise();
+      this.user = null;
     } catch (e) {
         throw e;
     }
