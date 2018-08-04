@@ -8,9 +8,14 @@
 <div class="actions" *ngIf="profile !== null && profile.ID === tournament.UserID">
     <button mat-raised-button color="primary" (click)="addGroup()">Добавить группу</button>
     <button mat-raised-button color="primary" (click)="removeGroup()">Удалить группу</button>
+    <button mat-raised-button color="primary" *ngIf="!data.playoff" (click)="addPlayoff(true)">Добавить playoff (singleData)</button>
+    <button mat-raised-button color="primary" *ngIf="!data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
+    <button mat-raised-button color="primary" *ngIf="data.playoff" (click)="removePlayoff()">Удалить playoff</button>
 </div>
 <div *ngIf="data.groups && data.groups.length > 0">
-    <h3>Группы</h3>
+    <div class="title">
+        <h3>Группы</h3>
+    </div>
     <app-brackets *ngFor="let group of data.groups"
         [canEdit]="profile !== null && profile.ID === tournament.UserID"
         [data]="group.data"
@@ -20,8 +25,12 @@
     ></app-brackets>
 </div>
 <div *ngIf="data.playoff">
-    <h3>Плай-офф</h3>
-    <app-brackets  [canEdit]="profile !== null && profile.ID === tournament.UserID" [data]="data.playoff" [typeBracket]="'single'"
+    <div class="title">
+        <h3>Плай-офф</h3>
+    </div>
+    <app-brackets  [canEdit]="profile !== null && profile.ID === tournament.UserID"
+        [data]="data.playoff"
+        [typeBracket]="data.playoffType || 'single'"
         (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"
     ></app-brackets>
 </div>

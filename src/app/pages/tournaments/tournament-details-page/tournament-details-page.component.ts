@@ -52,7 +52,8 @@ export class TournamentDetailsPageComponent implements OnInit {
           { name: 'A', data: this.doubleData },
           { name: 'B', data: this.doubleData },
         ],
-        playoff: this.singleData
+        playoff: this.singleData,
+        playoffType: 'single'
       };
       await this.updateTournament();
     }
@@ -73,6 +74,17 @@ export class TournamentDetailsPageComponent implements OnInit {
     await this.updateTournament();
   }
 
+  async addPlayoff(isSingle: boolean) {
+    this.data.playoff = isSingle ? this.singleData : this.doubleData;
+    this.data.playoffType = isSingle ? 'single' : 'double';
+    await this.updateTournament();
+  }
+  async removePlayoff() {
+    delete this.data.playoff;
+    delete this.data.playoffType;
+    await this.updateTournament();
+  }
+
   async SaveOnChange(data: any, item: any, type: 'playoff' | 'group') {
     if (type === 'group') {
       const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
@@ -88,6 +100,7 @@ export class TournamentDetailsPageComponent implements OnInit {
 export interface IData {
   groups: IGroup[];
   playoff: any;
+  playoffType: 'single' | 'double';
 }
 
 export interface IGroup {

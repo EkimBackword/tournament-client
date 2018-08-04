@@ -25,7 +25,7 @@
 
     margin-bottom: 24px;
     background-color: @background-white;
-    padding: 0 140px;
+    padding: 0 45px 0 80px;
     height: 70px;
     position: relative;
     z-index: 100;
@@ -104,6 +104,17 @@
         .bgcover('/assets/img/wood/wood_right.png');
     }
 }
+@media (max-width: @screen-medium) {
+    h3, .h3 {
+        font-size: @font-size-h4;
+    }
+}
+@media (max-width: @screen-small) {
+    h3, .h3 {
+        font-size: @font-size-h6;
+    }
+}
+
 .body {
     display: flex;
     flex-direction: row;
@@ -134,6 +145,36 @@
         margin: 24px;
     }
 }
+
+@media (max-width: @screen-medium) {
+    .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        
+        overflow: auto;
+
+        .body__user {
+            flex-shrink: 0;
+            align-self: center;
+        }
+        .body__main {
+            flex-shrink: 0;
+            min-height: 500px;
+        }
+    }
+}
+@media (max-width: @screen-small) {
+
+}
+
+
+
+
+
+
+
 
 .body__user {
     border-radius: 4px;
