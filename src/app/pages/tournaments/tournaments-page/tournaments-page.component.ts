@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class TournamentsPageComponent implements OnInit {
   profile: IUser = null;
+  isUserInvisible: boolean;
 
   constructor(
     private userService: UserService,
@@ -18,6 +19,11 @@ export class TournamentsPageComponent implements OnInit {
 
   async ngOnInit() {
     this.profile = await this.userService.GetProfile({ withTournaments: true });
+    this.isUserInvisible = false;
+  }
+
+  toogleUserInvisible() {
+    this.isUserInvisible = !this.isUserInvisible;
   }
 
   async logout() {
