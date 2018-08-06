@@ -96,6 +96,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this._loadBracket();
   }
+
   protected getGuid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -108,6 +109,24 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   protected _loadBracket() {
     $(`#minimal--${this.guid} .demo`).empty();
     this.bracket = $(`#minimal--${this.guid} .demo`).bracket(this.parameters);
+    $.contextMenu({
+      selector: '.teamContainer',
+      callback: (key, options) => {
+        if (key === 'telegram') {
+          const result = [
+            (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
+            (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
+          ];
+          // result = result.map(index => this.data.teams[index / 2][index % 2]);
+          console.log(result);
+        }
+      },
+      items: {
+        'telegram': {name: 'Сообщить'},
+        'sep1': '---------',
+        'quit': {name: 'Quit'}
+      }
+    });
   }
 
   protected _onChange(data) {
