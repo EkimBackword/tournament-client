@@ -14,7 +14,7 @@
     </div>
 
 
-    <div class="tournament__item mat-elevation-z1 tournament__item--add" *ngIf="profile !== null">
+    <div class="tournament__item mat-elevation-z1 tournament__item--add" *ngIf="profile !== null && profile.Role === 'admin'">
       <mat-form-field appearance="outline">
         <mat-label>Название</mat-label>
         <input matInput placeholder="Название" #newTournamentTitle>

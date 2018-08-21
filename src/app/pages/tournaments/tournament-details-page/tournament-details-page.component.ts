@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TournamentService, ITournament } from '../../../services/tournament.service';
+import { TournamentService, ITournament, TournamentStatusDescription, TournamentStatusENUM } from '../../../services/tournament.service';
 import { UserService, IUser } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -25,6 +25,8 @@ export class TournamentDetailsPageComponent implements OnInit {
     teams: [ [null, null], [null, null] ],
     results: [[[[]]], [], []]
   };
+
+  tournamentStatusDescription = TournamentStatusDescription;
 
   constructor(
     private tournamentService: TournamentService,
@@ -94,6 +96,17 @@ export class TournamentDetailsPageComponent implements OnInit {
     }
     item = data;
     await this.updateTournament();
+  }
+
+  async changeState() {
+    this.tournament.Status = this.tournament.Status === TournamentStatusENUM.new ?
+    TournamentStatusENUM.start : TournamentStatusENUM.finished;
+    await this.tournamentService.upadeteTournament(
+      this.tournamentId,
+      this.tournament.Title,
+      JSON.stringify(this.data),
+      this.tournament.Status
+    );
   }
 }
 

@@ -24,10 +24,19 @@
     }
 
     .tournament-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-shrink: 0;
         background-color: @background-yellow;
         padding: 16px 8px;
         border-radius: 4px;
         margin-bottom: 8px;
+        
+        span {
+            margin-bottom: 2px;
+        }
     }
 
 }

@@ -25,9 +25,9 @@ export class TournamentService {
         throw e;
     }
   }
-  public async upadeteTournament(ID: number, Title: string, JsonData: string) {
+  public async upadeteTournament(ID: number, Title: string, JsonData: string, Status?: TournamentStatusENUM) {
     try {
-        return await this.http.post<void>(`${environment.backendUrl}/tournament/${ID}/edit`, { Title, JsonData }).toPromise();
+        return await this.http.post<void>(`${environment.backendUrl}/tournament/${ID}/edit`, { Title, JsonData, Status }).toPromise();
     } catch (e) {
         throw e;
     }
@@ -41,7 +41,7 @@ export class TournamentService {
   }
   public async getTournament(ID: number, withUser?: boolean) {
     try {
-      const params = withUser ? { withUser: '1' } : {};
+      const params = withUser ? { withUser: '1', withMembers: '1' } : {};
         return await this.http.get<ITournament>(`${environment.backendUrl}/tournament/${ID}`, { params }).toPromise();
     } catch (e) {
         throw e;
@@ -53,12 +53,35 @@ export interface ITournament {
   ID?: number;
   Title: string;
   JsonData: string;
+  Status: TournamentStatusENUM;
+  DeckCount: number;
   UserID?: number;
+  CreationDate?: Date;
+  UpdatedAt?: Date;
 
   User?: IUser;
+  Members?: IMembers[];
 }
+
+export enum TournamentStatusENUM {
+  'new',
+  'start',
+  'finished'
+}
+
+export const TournamentStatusDescription = {};
+TournamentStatusDescription[TournamentStatusENUM.new] = 'Новый турнир, идет регистрация';
+TournamentStatusDescription[TournamentStatusENUM.start] = 'Турнир стартовал, можете следить за результатами';
+TournamentStatusDescription[TournamentStatusENUM.finished] = 'Турнир окончен';
 
 export interface IGetListResult {
   result: ITournament[];
   count: number;
+}
+
+export interface IMembers {
+  ID?: number;
+  TournamentID: number;
+  UserID: number;
+  DeckList: string;
 }

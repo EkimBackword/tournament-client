@@ -1,34 +1,42 @@
 <div class="header">
     <button mat-raised-button color="primary" (click)="goToTournamentsList()">К списку турниров</button>
-    <div class="tournament-info">
+    <div class="tournament-info" *ngIf="tournament">
         <h2>Название: {{tournament.Title}}</h2>
         <span>Организатор: {{tournament.User.FIO}}</span>
+        <span>Дата добавления турнира: {{tournament.CreationDate}}</span>
+        <span>Дата обновления информации: {{tournament.UpdatedAt}}</span>
+        <span>Статус: {{tournamentStatusDescription[tournament.Status]}}</span>
+        <button *ngIf="profile && profile !== null && profile.ID === tournament.UserID && tournament.Status !== 2"
+                mat-raised-button color="primary"
+                (click)="changeState()">
+            Поменять статус
+        </button>
     </div>
 </div>
-<div class="actions" *ngIf="profile !== null && profile.ID === tournament.UserID">
+<div class="actions" *ngIf="profile && profile !== null && profile.ID === tournament.UserID">
     <button mat-raised-button color="primary" (click)="addGroup()">Добавить группу</button>
     <button mat-raised-button color="primary" (click)="removeGroup()">Удалить группу</button>
-    <button mat-raised-button color="primary" *ngIf="!data.playoff" (click)="addPlayoff(true)">Добавить playoff (singleData)</button>
-    <button mat-raised-button color="primary" *ngIf="!data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
-    <button mat-raised-button color="primary" *ngIf="data.playoff" (click)="removePlayoff()">Удалить playoff</button>
+    <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(true)">Добавить playoff (singleData)</button>
+    <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
+    <button mat-raised-button color="primary" *ngIf="data && data.playoff" (click)="removePlayoff()">Удалить playoff</button>
 </div>
-<div *ngIf="data.groups && data.groups.length > 0">
+<div *ngIf="data && data.groups && data.groups.length > 0">
     <div class="title">
         <h3>Группы</h3>
     </div>
     <app-brackets *ngFor="let group of data.groups"
-        [canEdit]="profile !== null && profile.ID === tournament.UserID"
+        [canEdit]="profile && profile !== null && profile.ID === tournament.UserID"
         [data]="group.data"
         [groupName]="group.name"
         [typeBracket]="'group'"
         (OnChange)="SaveOnChange($event, group, 'group')"
     ></app-brackets>
 </div>
-<div *ngIf="data.playoff">
+<div *ngIf="data && data.playoff">
     <div class="title">
         <h3>Плай-офф</h3>
     </div>
-    <app-brackets  [canEdit]="profile !== null && profile.ID === tournament.UserID"
+    <app-brackets  [canEdit]="profile && profile !== null && profile.ID === tournament.UserID"
         [data]="data.playoff"
         [typeBracket]="data.playoffType || 'single'"
         (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"
