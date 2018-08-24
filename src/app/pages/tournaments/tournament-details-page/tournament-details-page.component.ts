@@ -28,6 +28,8 @@ export class TournamentDetailsPageComponent implements OnInit {
 
   tournamentStatusDescription = TournamentStatusDescription;
 
+  membersList = [];
+
   constructor(
     private tournamentService: TournamentService,
     private userService: UserService,
@@ -47,6 +49,9 @@ export class TournamentDetailsPageComponent implements OnInit {
   async load() {
     this.profile = await this.userService.GetProfile();
     this.tournament = await this.tournamentService.getTournament(this.tournamentId, true);
+    this.membersList = this.tournament.Members.map(member => {
+      return `${member.User.BattleTag}:${member.UserID}:${member.DeckList}`;
+    });
     this.data = JSON.parse(this.tournament.JsonData);
     if ( this.data.groups === void 0 ) {
       this.data = {

@@ -21,6 +21,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   @Input() canEdit: boolean;
   @Input() typeBracket: 'group' | 'single' | 'double';
   @Input() groupName?: string;
+  @Input() autocompleteData: string[] = [];
   @Input() set data(value) {
     if (value !== void 0 && value !== null) {
       this.initData = value;
@@ -34,13 +35,17 @@ export class BracketsComponent implements OnInit, AfterViewInit {
 
   protected viewOptions = {
     // размеры
-    teamWidth: 150,
+    teamWidth: 250,
     scoreWidth: 35,
     matchMargin: 20,
     roundMargin: 20,
     // отрисовка
     centerConnectors: true,
     disableHighlight: false,
+    decorator: {
+      edit: (container, data, doneCb) => this.autocompleteEditFn(container, data, doneCb),
+      render: (container, data, score, state) => this.autocompleteRenderFn(container, data, score, state)
+    }
   };
 
   protected skipOptionsEnable = {
@@ -95,6 +100,43 @@ export class BracketsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this._loadBracket();
+  }
+
+  autocompleteEditFn(container, data, doneCb) {
+    const input = $('<input type="text">');
+    input.val(data);
+    input.autocomplete({ source: this.autocompleteData });
+    input.blur(function() { doneCb(input.val()); });
+    input.keyup(function(e) { if ( (e.keyCode || e.which ) === 13) { input.blur(); } });
+    container.html(input);
+    input.focus();
+  }
+
+  autocompleteRenderFn(container, data, score, state) {
+    switch (state) {
+      case 'empty-bye':
+        container.append('BYE');
+        return;
+      case 'empty-tbd':
+        container.append('TBD');
+        return;
+      case 'entry-no-score':
+      case 'entry-default-win':
+      case 'entry-complete':
+        // console.
+        const fields = data.split(':'); // 'EkimBackward#2744:1:Druid, Hunter, Mage, Warrior'
+        if (fields.length === 3) {
+          const deckList = fields[2].split(', ').reduce((prev, deck: string) => {
+            return prev + ' <img width="21px" style="margin: -6px 0;" src="assets/img/classes/' + deck.toLowerCase() + '.png"> ';
+          }, '');
+          container.append(deckList).append(fields[0]);
+        } else if (fields.length === 1) {
+          container.append(fields[0]);
+        } else {
+          container.append('<i>INVALID</i>');
+        }
+        return;
+    }
   }
 
   protected getGuid() {

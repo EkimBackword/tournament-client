@@ -54,6 +54,7 @@ export interface IUser {
   FIO: string;
   Role: UserRoles;
   Hash: string;
+  BattleTag?: string;
 
   Tournaments?: ITournament[];
 }

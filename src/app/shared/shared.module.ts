@@ -4,6 +4,7 @@ import { MaterialComponentsModule } from './material-components/material-compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultSnackBarComponent } from './default-snack-bar/default-snack-bar.component';
 import { BracketsComponent } from './brackets/brackets.component';
+import { DeckListComponent } from './deck-list/deck-list.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { BracketsComponent } from './brackets/brackets.component';
   ],
   declarations: [
     DefaultSnackBarComponent,
-    BracketsComponent
+    BracketsComponent,
+    DeckListComponent
   ],
   entryComponents: [
     DefaultSnackBarComponent
@@ -23,7 +25,8 @@ import { BracketsComponent } from './brackets/brackets.component';
     MaterialComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    BracketsComponent
+    BracketsComponent,
+    DeckListComponent
   ]
 })
 export class SharedModule { }

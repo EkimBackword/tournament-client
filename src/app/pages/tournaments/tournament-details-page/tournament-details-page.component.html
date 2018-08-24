@@ -20,6 +20,16 @@
     <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
     <button mat-raised-button color="primary" *ngIf="data && data.playoff" (click)="removePlayoff()">Удалить playoff</button>
 </div>
+<div *ngIf="tournament && tournament.Members">
+    <div class="title">
+        <h3>Участники</h3>
+    </div>
+    <div *ngFor="let member of tournament.Members">
+        <div>{{member.User.BattleTag}}</div>
+        <!-- <div>{{member.DeckList}}</div> -->
+        <app-deck-list [deckList]='member.DeckList'></app-deck-list>
+    </div>
+</div>
 <div *ngIf="data && data.groups && data.groups.length > 0">
     <div class="title">
         <h3>Группы</h3>
@@ -29,6 +39,7 @@
         [data]="group.data"
         [groupName]="group.name"
         [typeBracket]="'group'"
+        [autocompleteData]="membersList"
         (OnChange)="SaveOnChange($event, group, 'group')"
     ></app-brackets>
 </div>
@@ -38,6 +49,7 @@
     </div>
     <app-brackets  [canEdit]="profile && profile !== null && profile.ID === tournament.UserID"
         [data]="data.playoff"
+        [autocompleteData]="membersList"
         [typeBracket]="data.playoffType || 'single'"
         (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"
     ></app-brackets>

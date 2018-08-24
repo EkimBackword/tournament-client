@@ -84,4 +84,5 @@ export interface IMembers {
   TournamentID: number;
   UserID: number;
   DeckList: string;
+  User: IUser;
 }
