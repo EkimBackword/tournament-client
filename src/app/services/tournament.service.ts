@@ -47,6 +47,16 @@ export class TournamentService {
         throw e;
     }
   }
+  public async sendOpponentInfo(ID: number, gamerID: any, opponentID: any) {
+    try {
+        return await this.http.post<ITournament>(`${environment.backendUrl}/tournament/${ID}/send-opponent-info`, {
+            gamerID,
+            opponentID
+        }).toPromise();
+    } catch (e) {
+        throw e;
+    }
+  }
 }
 
 export interface ITournament {

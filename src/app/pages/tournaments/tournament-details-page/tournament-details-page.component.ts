@@ -113,6 +113,13 @@ export class TournamentDetailsPageComponent implements OnInit {
       this.tournament.Status
     );
   }
+  async sendOpponentInfo(array: any[]) {
+    await this.tournamentService.sendOpponentInfo(
+      this.tournamentId,
+      array[0],
+      array[1]
+    );
+  }
 }
 
 export interface IData {

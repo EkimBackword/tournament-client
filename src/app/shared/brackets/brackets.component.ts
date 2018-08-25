@@ -32,6 +32,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   @Output() public OnChange = new EventEmitter<any>();
+  @Output() public OnSendOpponentInfo = new EventEmitter<any[]>();
 
   protected viewOptions = {
     // размеры
@@ -99,7 +100,9 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._loadBracket();
+    if (this.canEdit) {
+      this._loadBracket();
+    }
   }
 
   autocompleteEditFn(container, data, doneCb) {
@@ -155,12 +158,19 @@ export class BracketsComponent implements OnInit, AfterViewInit {
       selector: '.teamContainer',
       callback: (key, options) => {
         if (key === 'telegram') {
-          const result = [
+          let result = [
             (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
             (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
           ];
-          // result = result.map(index => this.data.teams[index / 2][index % 2]);
-          console.log(result);
+          result = result.map(index => {
+            const fields = this.data.teams[index / 2][index % 2].split(':');
+            if (fields.length === 3) {
+              return fields[1];
+            }
+            return null;
+          });
+          console.log('OnSendOpponentInfo', result);
+          this.OnSendOpponentInfo.next(result);
         }
       },
       items: {
