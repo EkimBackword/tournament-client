@@ -100,9 +100,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.canEdit) {
-      this._loadBracket();
-    }
+    this._loadBracket();
   }
 
   autocompleteEditFn(container, data, doneCb) {
@@ -152,33 +150,39 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   protected _loadBracket() {
-    $(`#minimal--${this.guid} .demo`).empty();
-    this.bracket = $(`#minimal--${this.guid} .demo`).bracket(this.parameters);
-    $.contextMenu({
-      selector: '.teamContainer',
-      callback: (key, options) => {
-        if (key === 'telegram') {
-          let result = [
-            (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
-            (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
-          ];
-          result = result.map(index => {
-            const fields = this.data.teams[index / 2][index % 2].split(':');
-            if (fields.length === 3) {
-              return fields[1];
+    try {
+      $(`#minimal--${this.guid} .demo`).empty();
+      this.bracket = $(`#minimal--${this.guid} .demo`).bracket(this.parameters);
+      if (this.canEdit) {
+        $.contextMenu({
+          selector: '.teamContainer',
+          callback: (key, options) => {
+            if (key === 'telegram') {
+              let result = [
+                (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
+                (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
+              ];
+              result = result.map(index => {
+                const fields = this.data.teams[ Math.floor(index / 2) ][index % 2].split(':');
+                if (fields.length === 3) {
+                  return fields[1];
+                }
+                return null;
+              });
+              console.log('OnSendOpponentInfo', result);
+              this.OnSendOpponentInfo.next(result);
             }
-            return null;
-          });
-          console.log('OnSendOpponentInfo', result);
-          this.OnSendOpponentInfo.next(result);
-        }
-      },
-      items: {
-        'telegram': {name: 'Сообщить'},
-        'sep1': '---------',
-        'quit': {name: 'Quit'}
+          },
+          items: {
+            'telegram': {name: 'Сообщить'},
+            'sep1': '---------',
+            'quit': {name: 'Quit'}
+          }
+        });
       }
-    });
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   protected _onChange(data) {
