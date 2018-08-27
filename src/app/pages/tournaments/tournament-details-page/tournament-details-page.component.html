@@ -6,7 +6,7 @@
         <span>Дата добавления турнира: {{tournament.CreationDate}}</span>
         <span>Дата обновления информации: {{tournament.UpdatedAt}}</span>
         <span>Статус: {{tournamentStatusDescription[tournament.Status]}}</span>
-        <button *ngIf="profile && profile !== null && profile.ID === tournament.UserID && tournament.Status !== 2"
+        <button *ngIf="profile && tournament && profile !== null && profile.ID === tournament.UserID && tournament.Status !== 2"
                 mat-raised-button color="primary"
                 (click)="changeState()">
             Поменять статус
@@ -19,6 +19,9 @@
     <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(true)">Добавить playoff (singleData)</button>
     <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
     <button mat-raised-button color="primary" *ngIf="data && data.playoff" (click)="removePlayoff()">Удалить playoff</button>
+</div>
+<div class="actions" *ngIf="!isMember && tournament && tournament.Status === 0">
+    <button mat-raised-button color="primary" (click)="addMe()">Зарегистрироваться в турнире</button>
 </div>
 <div *ngIf="tournament && tournament.Members && tournament.Members.length > 0">
     <div class="title">

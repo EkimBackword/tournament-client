@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { SignUpDialogComponent } from '../../shared/sign-up-dialog/sign-up-dialog.component';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +17,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -28,6 +31,19 @@ export class LoginPageComponent implements OnInit {
     } catch (e) {
       console.warn(e);
     }
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(SignUpDialogComponent, {
+      height: '600px',
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.SignUp(result);
+      }
+    });
   }
 
 }

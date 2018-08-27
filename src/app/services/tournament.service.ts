@@ -58,6 +58,25 @@ export class TournamentService {
       throw e;
     }
   }
+  public async addMember(ID: number, userId: any, Decks: string[]) {
+    try {
+      return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/add-member`, {
+        userId,
+        Decks
+      }).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
+  public async getBanRequestList(ID: number, userId: any) {
+    try {
+      return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/get-ban-request-list`, {
+        userId
+      }).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 export interface ITournament {

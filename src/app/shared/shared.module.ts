@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultSnackBarComponent } from './default-snack-bar/default-snack-bar.component';
 import { BracketsComponent } from './brackets/brackets.component';
 import { DeckListComponent } from './deck-list/deck-list.component';
+import { SignUpDialogComponent } from './sign-up-dialog/sign-up-dialog.component';
+import { AddMeDialogComponent } from './add-me-dialog/add-me-dialog.component';
 
 @NgModule({
   imports: [
@@ -16,17 +18,23 @@ import { DeckListComponent } from './deck-list/deck-list.component';
   declarations: [
     DefaultSnackBarComponent,
     BracketsComponent,
-    DeckListComponent
+    DeckListComponent,
+    SignUpDialogComponent,
+    AddMeDialogComponent
   ],
   entryComponents: [
-    DefaultSnackBarComponent
+    DefaultSnackBarComponent,
+    SignUpDialogComponent,
+    AddMeDialogComponent
   ],
   exports: [
     MaterialComponentsModule,
     FormsModule,
     ReactiveFormsModule,
     BracketsComponent,
-    DeckListComponent
+    DeckListComponent,
+    SignUpDialogComponent,
+    AddMeDialogComponent
   ]
 })
 export class SharedModule { }

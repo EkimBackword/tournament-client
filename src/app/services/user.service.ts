@@ -31,6 +31,14 @@ export class UserService {
     }
   }
 
+  public async SignUp(data: any) {
+    try {
+      await this.http.post(`${environment.backendUrl}/user/add`, data).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
+
   public async GetProfile(option?: { withTournaments?: boolean }) {
       try {
           const url = `${environment.backendUrl}/user/profile`;

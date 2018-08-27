@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TournamentService, ITournament, TournamentStatusDescription, TournamentStatusENUM } from '../../../services/tournament.service';
 import { UserService, IUser } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { AddMeDialogComponent } from '../../../shared/add-me-dialog/add-me-dialog.component';
 
 @Component({
   selector: 'app-tournament-details-page',
@@ -15,6 +17,7 @@ export class TournamentDetailsPageComponent implements OnInit {
   tournamentId: number;
   tournament: ITournament;
   profile: IUser;
+  isMember: boolean;
 
   singleData = {
     teams: [ [null, null], [null, null] ],
@@ -34,7 +37,8 @@ export class TournamentDetailsPageComponent implements OnInit {
     private tournamentService: TournamentService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -52,7 +56,12 @@ export class TournamentDetailsPageComponent implements OnInit {
     this.membersList = this.tournament.Members.map(member => {
       return `${member.User.BattleTag}:${member.UserID}:${member.DeckList}`;
     });
+    this.isMember = this.profile && this.tournament && this.tournament.Members.some(m => m.UserID === this.profile.ID);
     this.data = JSON.parse(this.tournament.JsonData);
+    this.tournamentService.getBanRequestList(
+      this.tournament.ID,
+      this.profile.ID
+    );
     if ( this.data.groups === void 0 ) {
       this.data = {
         groups: [
@@ -143,6 +152,27 @@ export class TournamentDetailsPageComponent implements OnInit {
     } catch (e) {
       console.warn(e);
     }
+  }
+
+  async addMe() {
+    const dialogRef = this.dialog.open(AddMeDialogComponent, {
+      data: {
+        DeckCount: this.tournament.DeckCount
+      },
+      height: '600px',
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        await this.tournamentService.addMember(
+          this.tournament.ID,
+          this.profile.ID,
+          result
+        );
+        this.load();
+      }
+    });
   }
 }
 

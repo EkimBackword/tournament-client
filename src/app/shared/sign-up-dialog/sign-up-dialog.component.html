@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Зарегистрироваться</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Логин</mat-label>
+    <input matInput placeholder="Логин" [(ngModel)]="data.Login">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>BattleTag</mat-label>
+    <input matInput placeholder="BattleTag" [(ngModel)]="data.BattleTag">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>ФИО</mat-label>
+    <input matInput placeholder="ФИО" [(ngModel)]="data.FIO">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Пароль</mat-label>
+    <input matInput placeholder="Пароль" type="password" [(ngModel)]="data.Password">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Подтверждение пароля</mat-label>
+    <input matInput placeholder="Подтверждение пароля" type="password" [(ngModel)]="data.confirmationPassword">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="warn" mat-dialog-close>Отмена</button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Зарегистрироваться</button>
+</mat-dialog-actions>
