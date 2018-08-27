@@ -158,6 +158,17 @@ export class BracketsComponent implements OnInit, AfterViewInit {
           selector: '.teamContainer',
           callback: (key, options) => {
             if (key === 'telegram') {
+              console.log([options.$trigger[0]]);
+              const match = (options.$trigger[0] as HTMLElement).parentNode;
+              const round = match.parentNode;
+              const bracket =  round.parentNode;
+
+              const matchIndex = this.findIndex(round.childNodes, match);
+              const roundIndex = this.findIndex(bracket.childNodes, round);
+              const bracketIndex = (bracket as HTMLElement).classList.contains('bracket') ? 0 :
+                                   (bracket as HTMLElement).classList.contains('finals') ? 2 : 1;
+
+
               let result = [
                 (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
                 (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
@@ -170,7 +181,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
                 return null;
               });
               console.log('OnSendOpponentInfo', result);
-              this.OnSendOpponentInfo.next(result);
+              this.OnSendOpponentInfo.next(result.concat([bracketIndex, roundIndex, matchIndex]));
             }
           },
           items: {
@@ -183,6 +194,15 @@ export class BracketsComponent implements OnInit, AfterViewInit {
     } catch (e) {
       console.warn(e);
     }
+  }
+
+  protected findIndex(list: NodeListOf<Node>, elem: any): number {
+    for (let index = 0; index < list.length; index++) {
+      if (elem === list.item(index)) {
+        return index;
+      }
+    }
+    return -1;
   }
 
   protected _onChange(data) {

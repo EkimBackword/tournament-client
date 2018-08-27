@@ -49,7 +49,7 @@ export class TournamentService {
   }
   public async sendOpponentInfo(ID: number, gamerID: any, opponentID: any) {
     try {
-      return await this.http.post<ITournament>(`${environment.backendUrl}/tournament/${ID}/send-opponent-info`, {
+      return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/send-opponent-info`, {
           gamerID,
           opponentID
       }).toPromise();
@@ -72,6 +72,23 @@ export interface ITournament {
 
   User?: IUser;
   Members?: IMembers[];
+}
+
+export interface IBanRequest {
+  ID?: number;
+  TournamentID: number;
+
+  GamerBattleTag: string;
+  GamerDeckList: string;
+  GamerBannedDeck?: string;
+  GamerChatID?: number;
+
+  OpponentBattleTag: string;
+  OpponentDeckList: string;
+  OpponentBannedDeck?: string;
+  OpponentChatID?: number;
+
+  Tournament?: ITournament;
 }
 
 export enum TournamentStatusENUM {

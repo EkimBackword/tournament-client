@@ -42,7 +42,7 @@
         [typeBracket]="'group'"
         [autocompleteData]="membersList"
         (OnChange)="SaveOnChange($event, group, 'group')"
-        (OnSendOpponentInfo)="sendOpponentInfo($event)"
+        (OnSendOpponentInfo)="sendOpponentInfo($event, data.playoff, 'playoff')"
     ></app-brackets>
 </div>
 <div *ngIf="data && data.playoff">
@@ -54,6 +54,6 @@
         [autocompleteData]="membersList"
         [typeBracket]="data.playoffType || 'single'"
         (OnChange)="SaveOnChange($event, data.playoff, 'playoff')"
-        (OnSendOpponentInfo)="sendOpponentInfo($event)"
+        (OnSendOpponentInfo)="sendOpponentInfo($event, data.playoff, 'playoff')"
     ></app-brackets>
 </div>

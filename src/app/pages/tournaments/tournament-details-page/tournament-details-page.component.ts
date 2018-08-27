@@ -121,13 +121,25 @@ export class TournamentDetailsPageComponent implements OnInit {
       console.warn(e);
     }
   }
-  async sendOpponentInfo(array: any[]) {
+  async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
     try {
-      await this.tournamentService.sendOpponentInfo(
+      // if (item.results[array[2]][array[3]][array[4]].length === 3) {
+      //   console.warn('Запрос уже создан');
+      //   return;
+      // }
+      const banRequest = await this.tournamentService.sendOpponentInfo(
         this.tournamentId,
         array[0],
         array[1]
       );
+      item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
+      if (type === 'group') {
+        const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
+        group.data = item;
+      } else {
+        this.data.playoff = item;
+      }
+      await this.updateTournament();
     } catch (e) {
       console.warn(e);
     }
