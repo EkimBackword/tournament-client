@@ -27,17 +27,41 @@
         color: @color-grey;
     }
 
-    img {
-        opacity: .55;
-    }
-
     &:hover {
         span {
             color: @color-grey-hover;
         }
+    }
+}
+
+@media (max-width: @screen-small) {
+
+    :host {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px;
+        overflow: auto;
+    }
+
+    .deck-list__item {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+
+        padding: 2px;
+        margin-right: 0;
+        overflow: auto;
+        cursor: pointer;
     
-        img {
-            opacity: 1;
+        span {
+            padding-left: 0;
+            line-height: 18px;
+            font-size: 12px;
+            font-weight: 500;
+            color: @color-grey-hover;
         }
     }
 }

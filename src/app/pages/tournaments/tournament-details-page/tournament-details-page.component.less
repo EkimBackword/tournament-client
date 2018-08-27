@@ -78,10 +78,18 @@
         font-weight: 300;
         padding-right: 8px;
         border-right: 1px solid @color-grey;
+        width: 255px;
+    }
+    app-deck-list {
+        opacity: .55;
     }
 
     &:hover {
         background-color: fade(@background-brown, 8%);
+
+        app-deck-list {
+            opacity: 1;
+        }
     }
 }
 
@@ -100,6 +108,26 @@
         button {
             width: 80%;
             margin-bottom: 8px;
+        }
+    }
+
+    .member-list__item  {
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        padding: 4px 8px;
+
+        span {
+            padding-right: 0;
+            padding-bottom: 8px;
+            border-right: 0;
+            border-bottom: 1px solid @color-grey;
+
+            width: auto;
+            text-align: center;
+        }
+        app-deck-list {
+            opacity: .55;
         }
     }
 }
