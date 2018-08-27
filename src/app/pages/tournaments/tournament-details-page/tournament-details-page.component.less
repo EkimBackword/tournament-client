@@ -59,6 +59,32 @@
     background-color: fade(@background-yellow, 80%);
 }
 
+.member-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.member-list__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    
+    span {
+        font-weight: 300;
+        padding-right: 8px;
+        border-right: 1px solid @color-grey;
+    }
+
+    &:hover {
+        background-color: fade(@background-brown, 8%);
+    }
+}
+
 @media (max-width: @screen-medium) {
 
 }

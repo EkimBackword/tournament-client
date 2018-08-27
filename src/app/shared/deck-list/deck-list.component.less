@@ -1,0 +1,43 @@
+@import "../../../variables.less";
+
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px;
+    overflow: auto;
+}
+
+.deck-list__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4px;
+    margin-right: 8px;
+    overflow: auto;
+    cursor: pointer;
+
+    span {
+        padding-left: 4px;
+        line-height: 18px;
+        font-size: 14px;
+        font-weight: 500;
+        color: @color-grey;
+    }
+
+    img {
+        opacity: .55;
+    }
+
+    &:hover {
+        span {
+            color: @color-grey-hover;
+        }
+    
+        img {
+            opacity: 1;
+        }
+    }
+}
