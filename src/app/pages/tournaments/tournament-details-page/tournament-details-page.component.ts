@@ -93,25 +93,44 @@ export class TournamentDetailsPageComponent implements OnInit {
   }
 
   async SaveOnChange(data: any, item: any, type: 'playoff' | 'group') {
-    if (type === 'group') {
-      const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
-      group.data = data;
-    } else {
-      this.data.playoff = data;
+    try {
+      if (type === 'group') {
+        const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
+        group.data = data;
+      } else {
+        this.data.playoff = data;
+      }
+      item = data;
+      await this.updateTournament();
+    } catch (e) {
+      console.warn(e);
     }
-    item = data;
-    await this.updateTournament();
   }
 
   async changeState() {
-    this.tournament.Status = this.tournament.Status === TournamentStatusENUM.new ?
-    TournamentStatusENUM.start : TournamentStatusENUM.finished;
-    await this.tournamentService.upadeteTournament(
-      this.tournamentId,
-      this.tournament.Title,
-      JSON.stringify(this.data),
-      this.tournament.Status
-    );
+    try {
+      this.tournament.Status = this.tournament.Status === TournamentStatusENUM.new ?
+      TournamentStatusENUM.start : TournamentStatusENUM.finished;
+      await this.tournamentService.upadeteTournament(
+        this.tournamentId,
+        this.tournament.Title,
+        JSON.stringify(this.data),
+        this.tournament.Status
+      );
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+  async sendOpponentInfo(array: any[]) {
+    try {
+      await this.tournamentService.sendOpponentInfo(
+        this.tournamentId,
+        array[0],
+        array[1]
+      );
+    } catch (e) {
+      console.warn(e);
+    }
   }
 }
 
