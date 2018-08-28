@@ -140,7 +140,6 @@ export class TournamentDetailsPageComponent implements OnInit {
     }
   }
   async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
-    try {
       if (item.results[array[2]][array[3]][array[4]].length === 3) {
         console.warn('Запрос уже создан');
         this.uiState.showMessage({
@@ -150,11 +149,19 @@ export class TournamentDetailsPageComponent implements OnInit {
         });
         return;
       }
-      const banRequest = await this.tournamentService.sendOpponentInfo(
-        this.tournamentId,
-        array[0],
-        array[1]
-      );
+      try {
+        const banRequest = await this.tournamentService.sendOpponentInfo(
+          this.tournamentId,
+          array[0],
+          array[1]
+        );
+      } catch (response) {
+        this.uiState.showMessage({
+          title: 'Ошибка добавления',
+          message: response.error.message,
+          type: 'error'
+        });
+      }
       item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
       if (type === 'group') {
         const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
@@ -168,13 +175,7 @@ export class TournamentDetailsPageComponent implements OnInit {
         message: 'Информация о матче отправленна',
         type: 'success'
       });
-    } catch (response) {
-      this.uiState.showMessage({
-        title: 'Ошибка добавления',
-        message: response.error.message,
-        type: 'error'
-      });
-    }
+
   }
 
   async addMe() {
