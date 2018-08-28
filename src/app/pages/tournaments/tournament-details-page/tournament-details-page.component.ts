@@ -155,19 +155,19 @@ export class TournamentDetailsPageComponent implements OnInit {
           array[0],
           array[1]
         );
+        item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
+        if (type === 'group') {
+          const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
+          group.data = item;
+        } else {
+          this.data.playoff = item;
+        }
       } catch (response) {
         this.uiState.showMessage({
           title: 'Ошибка добавления',
           message: response.error.message,
           type: 'error'
         });
-      }
-      item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
-      if (type === 'group') {
-        const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
-        group.data = item;
-      } else {
-        this.data.playoff = item;
       }
       await this.updateTournament();
       this.uiState.showMessage({
