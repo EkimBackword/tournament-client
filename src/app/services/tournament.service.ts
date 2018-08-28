@@ -70,7 +70,7 @@ export class TournamentService {
   }
   public async getBanRequestList(ID: number, userId: any) {
     try {
-      return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/get-ban-request-list`, {
+      return await this.http.post<IBanRequest[]>(`${environment.backendUrl}/tournament/${ID}/get-ban-request-list`, {
         userId
       }).toPromise();
     } catch (e) {
@@ -108,6 +108,8 @@ export interface IBanRequest {
   OpponentChatID?: number;
 
   Tournament?: ITournament;
+
+  isShowen?: boolean;
 }
 
 export enum TournamentStatusENUM {

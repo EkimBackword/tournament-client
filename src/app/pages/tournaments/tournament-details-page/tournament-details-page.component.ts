@@ -4,6 +4,7 @@ import { UserService, IUser } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { AddMeDialogComponent } from '../../../shared/add-me-dialog/add-me-dialog.component';
+import { BanRequestListDialogComponent } from '../../../shared/ban-request-list-dialog/ban-request-list-dialog.component';
 
 @Component({
   selector: 'app-tournament-details-page',
@@ -18,6 +19,7 @@ export class TournamentDetailsPageComponent implements OnInit {
   tournament: ITournament;
   profile: IUser;
   isMember: boolean;
+  showMember: boolean;
 
   singleData = {
     teams: [ [null, null], [null, null] ],
@@ -42,6 +44,7 @@ export class TournamentDetailsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showMember = false;
     this.route.params.subscribe(params => {
       this.tournamentId = params['tournamentId'];
       this.load();
@@ -58,10 +61,6 @@ export class TournamentDetailsPageComponent implements OnInit {
     });
     this.isMember = this.profile && this.tournament && this.tournament.Members.some(m => m.UserID === this.profile.ID);
     this.data = JSON.parse(this.tournament.JsonData);
-    this.tournamentService.getBanRequestList(
-      this.tournament.ID,
-      this.profile.ID
-    );
     if ( this.data.groups === void 0 ) {
       this.data = {
         groups: [
@@ -132,10 +131,10 @@ export class TournamentDetailsPageComponent implements OnInit {
   }
   async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
     try {
-      // if (item.results[array[2]][array[3]][array[4]].length === 3) {
-      //   console.warn('Запрос уже создан');
-      //   return;
-      // }
+      if (item.results[array[2]][array[3]][array[4]].length === 3) {
+        console.warn('Запрос уже создан');
+        return;
+      }
       const banRequest = await this.tournamentService.sendOpponentInfo(
         this.tournamentId,
         array[0],
@@ -171,6 +170,22 @@ export class TournamentDetailsPageComponent implements OnInit {
           result
         );
         this.load();
+      }
+    });
+  }
+
+  async banRequestList() {
+    const dialogRef = this.dialog.open(BanRequestListDialogComponent, {
+      data: {
+        tournament: this.tournament,
+        profile: this.profile
+      },
+      height: '600px',
+      width: '1200px',
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
       }
     });
   }

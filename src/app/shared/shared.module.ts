@@ -7,6 +7,7 @@ import { BracketsComponent } from './brackets/brackets.component';
 import { DeckListComponent } from './deck-list/deck-list.component';
 import { SignUpDialogComponent } from './sign-up-dialog/sign-up-dialog.component';
 import { AddMeDialogComponent } from './add-me-dialog/add-me-dialog.component';
+import { BanRequestListDialogComponent } from './ban-request-list-dialog/ban-request-list-dialog.component';
 
 @NgModule({
   imports: [
@@ -20,12 +21,14 @@ import { AddMeDialogComponent } from './add-me-dialog/add-me-dialog.component';
     BracketsComponent,
     DeckListComponent,
     SignUpDialogComponent,
-    AddMeDialogComponent
+    AddMeDialogComponent,
+    BanRequestListDialogComponent
   ],
   entryComponents: [
     DefaultSnackBarComponent,
     SignUpDialogComponent,
-    AddMeDialogComponent
+    AddMeDialogComponent,
+    BanRequestListDialogComponent
   ],
   exports: [
     MaterialComponentsModule,
@@ -34,7 +37,8 @@ import { AddMeDialogComponent } from './add-me-dialog/add-me-dialog.component';
     BracketsComponent,
     DeckListComponent,
     SignUpDialogComponent,
-    AddMeDialogComponent
+    AddMeDialogComponent,
+    BanRequestListDialogComponent
   ]
 })
 export class SharedModule { }

@@ -27,7 +27,7 @@ export class AppInterceptor implements HttpInterceptor {
 
     HandleResponse(event: HttpEvent<any>) {
         if (event instanceof HttpResponse) {
-            console.log('GOOD HttpResponse');
+            // console.log('GOOD HttpResponse');
         }
     }
     HandleErrorResponse(event: HttpEvent<any>) {
@@ -37,7 +37,7 @@ export class AppInterceptor implements HttpInterceptor {
                 //     this.router.navigate(['/login']);
                 // });
             }
-            console.log('This is HttpErrorResponse');
+            // console.log('This is HttpErrorResponse');
         }
     }
 }

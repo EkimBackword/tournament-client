@@ -18,6 +18,8 @@
     margin-right: 8px;
     overflow: auto;
     cursor: pointer;
+    width: 140px;
+    height: 35px;
 
     span {
         padding-left: 4px;
@@ -34,6 +36,25 @@
     }
 }
 
+.img {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    
+    &.banned {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background-color: fade(@color-danger, 50%);
+        }
+    }
+}
+
 @media (max-width: @screen-small) {
 
     :host {
@@ -43,16 +64,19 @@
         align-items: center;
         padding: 8px;
         overflow: auto;
+        flex-wrap: wrap;
     }
 
     .deck-list__item {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 25%;
+        width: 50%;
+        height: 50px;
 
         padding: 2px;
         margin-right: 0;
+        margin-bottom: 4px;
         overflow: auto;
         cursor: pointer;
     
@@ -60,7 +84,7 @@
             padding-left: 0;
             line-height: 18px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             color: @color-grey-hover;
         }
     }

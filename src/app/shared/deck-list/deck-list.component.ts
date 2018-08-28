@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-deck-list',
@@ -17,9 +17,31 @@ export class DeckListComponent implements OnInit {
     return this._deckList.join(', ');
   }
 
+  @Input() public BannedDeck: string;
+  @Output() public OnSelect = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  deckName(id: string) {
+    const list = {
+      'Druid': 'Друид',
+      'Mage': 'Маг',
+      'Paladin': 'Паладин',
+      'Priest': 'Жрец',
+      'Rogue': 'Разбойник',
+      'Shaman': 'Шаман',
+      'Warlock': 'Чернокнижник',
+      'Warrior': 'Воин',
+      'Hunter': 'Охотник',
+    };
+    return list[id];
+  }
+
+  select(deck) {
+    this.OnSelect.next(deck);
   }
 
 }

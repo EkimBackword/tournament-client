@@ -33,7 +33,6 @@ export class TournamentsListPageComponent implements OnInit {
 
   async load() {
     this.profile = await this.userService.GetProfile();
-    console.log(this.profile);
     this.tournamentsInfo = await this.tournamentService.getList();
   }
 

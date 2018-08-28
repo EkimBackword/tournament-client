@@ -20,14 +20,17 @@
     <button mat-raised-button color="primary" *ngIf="data && !data.playoff" (click)="addPlayoff(false)">Добавить playoff (doubleData)</button>
     <button mat-raised-button color="primary" *ngIf="data && data.playoff" (click)="removePlayoff()">Удалить playoff</button>
 </div>
-<div class="actions" *ngIf="!isMember && tournament && tournament.Status === 0">
-    <button mat-raised-button color="primary" (click)="addMe()">Зарегистрироваться в турнире</button>
+<div class="actions" *ngIf="profile !== null && tournament">
+    <button mat-raised-button color="primary" *ngIf="!isMember && tournament.Status === 0" (click)="addMe()">Зарегистрироваться в турнире</button>
+    <button mat-raised-button color="primary" *ngIf="isMember && tournament.Status === 1" (click)="banRequestList()">Список моих матчей</button>
 </div>
 <div *ngIf="tournament && tournament.Members && tournament.Members.length > 0">
-    <div class="title">
+    <div class="title" (click)="showMember = !showMember">
         <h3>Участники</h3>
+        <mat-icon *ngIf="showMember">visibility</mat-icon>
+        <mat-icon *ngIf="!showMember">visibility_off</mat-icon>
     </div>
-    <div class="member-list">
+    <div class="member-list" *ngIf="showMember">
         <div class="member-list__item" *ngFor="let member of tournament.Members">
             <span>{{member.User.BattleTag}}</span>
             <app-deck-list [deckList]='member.DeckList'></app-deck-list>

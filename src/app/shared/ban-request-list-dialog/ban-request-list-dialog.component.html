@@ -1,0 +1,33 @@
+<!-- <h2 mat-dialog-title>Список ваших матчей</h2> -->
+<mat-dialog-content>
+  <div *ngFor="let request of list; let i = index">
+    <h4>Матч {{i}}</h4>
+    <div>
+      <h5>{{request.GamerBattleTag}}</h5>
+      <app-deck-list *ngIf="(request.GamerBattleTag === this.data.profile.BattleTag && request.isShowen) || request.OpponentBattleTag === this.data.profile.BattleTag"
+        [deckList]="request.GamerDeckList"
+        [BannedDeck]="request.GamerBannedDeck"
+        (OnSelect)="ban($event, request, 'gamer')"
+      ></app-deck-list>
+      <div *ngIf="request.GamerBattleTag === this.data.profile.BattleTag && !request.isShowen">
+        Ждем решения противника
+      </div>
+    </div>
+    <div>
+      <h5>{{request.OpponentBattleTag}}</h5>
+      <app-deck-list *ngIf="(request.OpponentBattleTag === this.data.profile.BattleTag && request.isShowen) || request.GamerBattleTag === this.data.profile.BattleTag"
+        [deckList]="request.OpponentDeckList"
+        [BannedDeck]="request.OpponentBannedDeck"
+        (OnSelect)="ban($event, request, 'opponent')"
+      ></app-deck-list>
+      <div *ngIf="request.OpponentBattleTag === this.data.profile.BattleTag && !request.isShowen">
+        Ждем решения противника
+      </div>
+    </div>
+    <button mat-raised-button color="accent" (click)="save(request)">Сохранить</button>
+    <mat-divider></mat-divider>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close>Закрыть</button>
+</mat-dialog-actions>
