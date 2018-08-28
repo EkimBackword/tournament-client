@@ -10,7 +10,7 @@
         (OnSelect)="ban($event, request, 'gamer')"
       ></app-deck-list>
       <div *ngIf="request.GamerBattleTag === this.data.profile.BattleTag && !request.isShowen">
-        Ждем решения противника
+          {{ request.OpponentBannedDeck !== null ? "Ждем решения противника" : "Для начала выберите колоду, которую вы хотите забанить"}}
       </div>
     </div>
     <div>
@@ -21,7 +21,7 @@
         (OnSelect)="ban($event, request, 'opponent')"
       ></app-deck-list>
       <div *ngIf="request.OpponentBattleTag === this.data.profile.BattleTag && !request.isShowen">
-        Ждем решения противника
+        {{ request.GamerBannedDeck !== null ? "Ждем решения противника" : "Для начала выберите колоду, которую вы хотите забанить"}}
       </div>
     </div>
     <button mat-raised-button color="accent" (click)="save(request)">Сохранить</button>
