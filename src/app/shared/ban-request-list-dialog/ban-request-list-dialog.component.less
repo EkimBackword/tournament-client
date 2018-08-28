@@ -11,6 +11,7 @@
 
 mat-dialog-content {
     flex: 1 1 auto;
+    max-height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -22,6 +23,39 @@ mat-dialog-content {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .request {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-shrink: 0;
+        margin-bottom: 8px;
+
+        h4.title {
+            padding: 4px 8px;
+            background-color: @background-yellow;
+        }
+        span.subtitle {
+            margin: 4px 0;
+            color: @color-grey-hover;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .gamer-info {
+            margin: 4px 0;
+            
+            h5 {
+                padding: 4px 8px;
+                background-color: fade(@background-yellow, 85%);
+            }
+        }
+
+        button {
+            margin-bottom: 8px;
+        }
     }
 }
 

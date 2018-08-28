@@ -1,21 +1,28 @@
 <!-- <h2 mat-dialog-title>Список ваших матчей</h2> -->
 <mat-dialog-content>
-  <div *ngFor="let request of list; let i = index">
-    <h4>Матч {{i}}</h4>
-    <div>
+  <div class="request" *ngFor="let request of list; let i = index">
+
+    <h4 class="title">Матч {{request.ID}}</h4>
+    <span class="subtitle">1) Выберите колоду противника, которую вы хотите забанить. Затем нажмите кнопку сохранить.</span>
+    <span class="subtitle">2) Дождитесь выбора противника.</span>
+    <span class="subtitle">3) Сыграёте с противником матчи.</span>
+    <span class="subtitle">4) После завершения матчей сообщите о результате, написав в поле "Результат". Например, "Выиграл 3-2"</span>
+
+    <div class="gamer-info">
       <h5>{{request.GamerBattleTag}}</h5>
-      <app-deck-list *ngIf="(request.GamerBattleTag === this.data.profile.BattleTag && request.isShowen) || request.OpponentBattleTag === this.data.profile.BattleTag"
+      <app-deck-list *ngIf="(request.GamerBattleTag === data.profile.BattleTag && request.isShowen) || request.OpponentBattleTag === data.profile.BattleTag"
         [deckList]="request.GamerDeckList"
         [BannedDeck]="request.GamerBannedDeck"
         (OnSelect)="ban($event, request, 'gamer')"
       ></app-deck-list>
-      <div *ngIf="request.GamerBattleTag === this.data.profile.BattleTag && !request.isShowen">
+      <div *ngIf="request.GamerBattleTag === data.profile.BattleTag && !request.isShowen">
           {{ request.OpponentBannedDeck !== null ? "Ждем решения противника" : "Для начала выберите колоду, которую вы хотите забанить"}}
       </div>
     </div>
-    <div>
+
+    <div class="gamer-info">
       <h5>{{request.OpponentBattleTag}}</h5>
-      <app-deck-list *ngIf="(request.OpponentBattleTag === this.data.profile.BattleTag && request.isShowen) || request.GamerBattleTag === this.data.profile.BattleTag"
+      <app-deck-list *ngIf="(request.OpponentBattleTag === data.profile.BattleTag && request.isShowen) || request.GamerBattleTag === data.profile.BattleTag"
         [deckList]="request.OpponentDeckList"
         [BannedDeck]="request.OpponentBannedDeck"
         (OnSelect)="ban($event, request, 'opponent')"
@@ -24,8 +31,24 @@
         {{ request.GamerBannedDeck !== null ? "Ждем решения противника" : "Для начала выберите колоду, которую вы хотите забанить"}}
       </div>
     </div>
-    <button mat-raised-button color="accent" (click)="save(request)">Сохранить</button>
+
+    <mat-form-field appearance="outline" *ngIf="request.OpponentBattleTag === data.profile.BattleTag && request.isShowen">
+      <mat-label>Результат</mat-label>
+      <input matInput placeholder="Результат"
+      [disabled]="request.OpponentResultInfo !== null"
+      [(ngModel)]="request.OpponentResultInfo">
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="request.GamerBattleTag === data.profile.BattleTag && request.isShowen">
+      <mat-label>Результат</mat-label>
+      <input matInput placeholder="Результат"
+      [disabled]="request.GamerResultInfo !== null"
+      [(ngModel)]="request.GamerResultInfo">
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" (click)="save(request)">Сохранить (Матч {{request.ID}})</button>
+
     <mat-divider></mat-divider>
+
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

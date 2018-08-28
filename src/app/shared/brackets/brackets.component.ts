@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter, NgZone } from '@angular/core';
 // import * as $ from 'jquery';
 // import 'jquery-bracket';
 declare var $: any;
@@ -62,7 +62,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
     disableTeamEdit: false
   };
 
-  constructor() { }
+  constructor(private zone: NgZone) { }
 
   ngOnInit() {
     this.guid = this.getGuid();
@@ -181,7 +181,9 @@ export class BracketsComponent implements OnInit, AfterViewInit {
                 return null;
               });
               console.log('OnSendOpponentInfo', result);
-              this.OnSendOpponentInfo.next(result.concat([bracketIndex, roundIndex, matchIndex]));
+              this.zone.run(() => {
+                this.OnSendOpponentInfo.next(result.concat([bracketIndex, roundIndex, matchIndex]));
+              });
             }
           },
           items: {

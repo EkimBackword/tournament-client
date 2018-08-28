@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppInterceptor } from './services/interceptor';
 import { UserService } from './services/user.service';
 import { TournamentService } from './services/tournament.service';
+import { UiStateService } from './services/ui-state.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TournamentService } from './services/tournament.service';
     },
     UserService,
     TournamentService,
+    UiStateService
   ],
   bootstrap: [AppComponent]
 })

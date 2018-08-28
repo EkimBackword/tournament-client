@@ -77,6 +77,13 @@ export class TournamentService {
       throw e;
     }
   }
+  public async saveBanRequest(ID: number, data: IBanRequest) {
+    try {
+      return await this.http.post<void>(`${environment.backendUrl}/tournament/${ID}/save-ban-request`, data).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 export interface ITournament {
@@ -100,11 +107,13 @@ export interface IBanRequest {
   GamerBattleTag: string;
   GamerDeckList: string;
   GamerBannedDeck?: string;
+  GamerResultInfo?: string;
   GamerChatID?: number;
 
   OpponentBattleTag: string;
   OpponentDeckList: string;
   OpponentBannedDeck?: string;
+  OpponentResultInfo?: string;
   OpponentChatID?: number;
 
   Tournament?: ITournament;

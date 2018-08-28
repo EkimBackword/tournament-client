@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { AddMeDialogComponent } from '../../../shared/add-me-dialog/add-me-dialog.component';
 import { BanRequestListDialogComponent } from '../../../shared/ban-request-list-dialog/ban-request-list-dialog.component';
+import { UiStateService } from '../../../services/ui-state.service';
 
 @Component({
   selector: 'app-tournament-details-page',
@@ -38,6 +39,7 @@ export class TournamentDetailsPageComponent implements OnInit {
   constructor(
     private tournamentService: TournamentService,
     private userService: UserService,
+    private uiState: UiStateService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog
@@ -74,7 +76,15 @@ export class TournamentDetailsPageComponent implements OnInit {
     }
   }
   private async updateTournament() {
-    await this.tournamentService.upadeteTournament(this.tournamentId, this.tournament.Title, JSON.stringify(this.data));
+    try {
+      await this.tournamentService.upadeteTournament(this.tournamentId, this.tournament.Title, JSON.stringify(this.data));
+    } catch (response) {
+      this.uiState.showMessage({
+        title: 'Ошибка обновления данных',
+        message: response.error.message,
+        type: 'error'
+      });
+    }
   }
 
   async addGroup() {
@@ -101,7 +111,6 @@ export class TournamentDetailsPageComponent implements OnInit {
   }
 
   async SaveOnChange(data: any, item: any, type: 'playoff' | 'group') {
-    try {
       if (type === 'group') {
         const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
         group.data = data;
@@ -110,9 +119,6 @@ export class TournamentDetailsPageComponent implements OnInit {
       }
       item = data;
       await this.updateTournament();
-    } catch (e) {
-      console.warn(e);
-    }
   }
 
   async changeState() {
@@ -125,14 +131,23 @@ export class TournamentDetailsPageComponent implements OnInit {
         JSON.stringify(this.data),
         this.tournament.Status
       );
-    } catch (e) {
-      console.warn(e);
+    } catch (response) {
+      this.uiState.showMessage({
+        title: 'Ошибка добавления',
+        message: response.error.message,
+        type: 'error'
+      });
     }
   }
   async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
     try {
       if (item.results[array[2]][array[3]][array[4]].length === 3) {
         console.warn('Запрос уже создан');
+        this.uiState.showMessage({
+          title: 'Запрос уже создан',
+          message: 'Информация о матче уже была отправленна',
+          type: 'warn'
+        });
         return;
       }
       const banRequest = await this.tournamentService.sendOpponentInfo(
@@ -148,8 +163,17 @@ export class TournamentDetailsPageComponent implements OnInit {
         this.data.playoff = item;
       }
       await this.updateTournament();
-    } catch (e) {
-      console.warn(e);
+      this.uiState.showMessage({
+        title: 'Отправленны данные',
+        message: 'Информация о матче отправленна',
+        type: 'success'
+      });
+    } catch (response) {
+      this.uiState.showMessage({
+        title: 'Ошибка добавления',
+        message: response.error.message,
+        type: 'error'
+      });
     }
   }
 
@@ -164,11 +188,19 @@ export class TournamentDetailsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
-        await this.tournamentService.addMember(
-          this.tournament.ID,
-          this.profile.ID,
-          result
-        );
+        try {
+          await this.tournamentService.addMember(
+            this.tournament.ID,
+            this.profile.ID,
+            result
+          );
+        } catch (response) {
+          this.uiState.showMessage({
+            title: 'Ошибка добавления',
+            message: response.error.message,
+            type: 'error'
+          });
+        }
         this.load();
       }
     });
@@ -182,11 +214,6 @@ export class TournamentDetailsPageComponent implements OnInit {
       },
       height: '600px',
       width: '1200px',
-    });
-
-    dialogRef.afterClosed().subscribe(async result => {
-      if (result) {
-      }
     });
   }
 }

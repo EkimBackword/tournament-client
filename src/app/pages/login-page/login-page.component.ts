@@ -39,11 +39,11 @@ export class LoginPageComponent implements OnInit {
       width: '400px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.userService.SignUp(result);
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.userService.SignUp(result);
+    //   }
+    // });
   }
 
 }
