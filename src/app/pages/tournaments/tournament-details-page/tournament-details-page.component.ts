@@ -140,6 +140,7 @@ export class TournamentDetailsPageComponent implements OnInit {
     }
   }
   async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
+    try {
       if (item.results[array[2]][array[3]][array[4]].length === 3) {
         console.warn('Запрос уже создан');
         this.uiState.showMessage({
@@ -149,6 +150,9 @@ export class TournamentDetailsPageComponent implements OnInit {
         });
         return;
       }
+    } catch (e) {
+      console.warn(e);
+    }
       try {
         const banRequest = await this.tournamentService.sendOpponentInfo(
           this.tournamentId,

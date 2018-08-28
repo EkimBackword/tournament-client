@@ -35,13 +35,11 @@
     <mat-form-field appearance="outline" *ngIf="request.OpponentBattleTag === data.profile.BattleTag && request.isShowen">
       <mat-label>Результат</mat-label>
       <input matInput placeholder="Результат"
-      [disabled]="request.OpponentResultInfo !== null"
       [(ngModel)]="request.OpponentResultInfo">
     </mat-form-field>
     <mat-form-field appearance="outline" *ngIf="request.GamerBattleTag === data.profile.BattleTag && request.isShowen">
       <mat-label>Результат</mat-label>
       <input matInput placeholder="Результат"
-      [disabled]="request.GamerResultInfo !== null"
       [(ngModel)]="request.GamerResultInfo">
     </mat-form-field>
 
