@@ -33,6 +33,8 @@
           <mat-icon>open_in_new</mat-icon>
         </button>
         <!-- <button mat-raised-button color="primary" *ngIf="isUserInvisible">Добавить турнир</button> -->
+        <button mat-raised-button color="primary" *ngIf="profile !== null && !profile.ChatID" (click)="GetTelegramRequestCode()">Получить ключь для телеграмма</button>
+        <span class="telegram-request" *ngIf="telegramRequest" (click)="copyMessage()"><strong>/request</strong> {{telegramRequest}}</span>
         <button mat-raised-button color="warn" *ngIf="profile !== null" (click)="logout()">Выход</button>
         <button mat-raised-button color="accent" *ngIf="profile === null" routerLink="/login" routerLinkActive="active">Вход</button>
       </div>

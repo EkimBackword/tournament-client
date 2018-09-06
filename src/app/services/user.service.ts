@@ -39,6 +39,14 @@ export class UserService {
     }
   }
 
+  public async telegramRequest() {
+    try {
+      return await this.http.get<string>(`${environment.backendUrl}/user/telegram-request`).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
+
   public async GetProfile(option?: { withTournaments?: boolean }) {
       try {
           const url = `${environment.backendUrl}/user/profile`;
@@ -63,6 +71,7 @@ export interface IUser {
   Role: UserRoles;
   Hash: string;
   BattleTag?: string;
+  ChatID?: any;
 
   Tournaments?: ITournament[];
 }
