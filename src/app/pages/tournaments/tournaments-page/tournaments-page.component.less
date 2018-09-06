@@ -140,11 +140,29 @@
             text-align: center;
             font-size: 12px;
             padding: 4px;
-            margin-bottom: 16px;
-            background-color: @background-yellow;
+            margin-bottom: 8px;
+            background-color: fade(@background-yellow, 50%);
             border-radius: 4px;
 
             strong {
+                color: @color-blue-hover;
+            }
+
+            &.telegram-request--can-copy {
+                background-color: @background-yellow;
+                padding: 8px 4px;
+                margin-bottom: 16px;
+
+                cursor: pointer;
+            }
+
+            mat-icon {
+                @custom-icon-size: 16px;
+                width: @custom-icon-size;
+                height: @custom-icon-size;
+                font-size: @custom-icon-size;
+                line-height: @custom-icon-size;
+                margin-right: 4px;
                 color: @color-blue-hover;
             }
         }
