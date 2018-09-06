@@ -38,13 +38,13 @@ export class TournamentsPageComponent implements OnInit {
     this.telegramRequest = await this.userService.telegramRequest();
   }
 
-  copyMessage() {
+  copyMessage(val: string = `/request ${this.telegramRequest}`) {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
     selBox.style.top = '0';
     selBox.style.opacity = '0';
-    selBox.value = `/request ${this.telegramRequest}`;
+    selBox.value = val;
     document.body.appendChild(selBox);
     selBox.focus();
     selBox.select();
@@ -52,7 +52,7 @@ export class TournamentsPageComponent implements OnInit {
     document.body.removeChild(selBox);
     this.uiState.showMessage({
       title: 'Копирование',
-      message: 'Текст скопирован! Осталось отправить в телеграм. ',
+      message: 'Текст скопирован! Осталось отправить его боту в телеграмм.',
       type: 'success'
     });
   }
