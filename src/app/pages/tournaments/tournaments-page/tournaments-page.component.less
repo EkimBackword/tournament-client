@@ -134,6 +134,38 @@
         background-color: @background-white;
         width: 430px;
         margin: 24px;
+
+        .telegram-request {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            padding: 4px;
+            margin-bottom: 8px;
+            background-color: fade(@background-yellow, 50%);
+            border-radius: 4px;
+
+            strong {
+                color: @color-blue-hover;
+            }
+
+            &.telegram-request--can-copy {
+                background-color: @background-yellow;
+                padding: 8px 4px;
+                margin-bottom: 16px;
+
+                cursor: pointer;
+            }
+
+            mat-icon {
+                @custom-icon-size: 16px;
+                width: @custom-icon-size;
+                height: @custom-icon-size;
+                font-size: @custom-icon-size;
+                line-height: @custom-icon-size;
+                margin-right: 4px;
+                color: @color-blue-hover;
+            }
+        }
     }
     .body__user--invisible {
         display: flex;

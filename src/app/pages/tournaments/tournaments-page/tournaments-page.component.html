@@ -33,6 +33,16 @@
           <mat-icon>open_in_new</mat-icon>
         </button>
         <!-- <button mat-raised-button color="primary" *ngIf="isUserInvisible">Добавить турнир</button> -->
+        <button mat-raised-button color="primary" *ngIf="profile !== null && !profile.ChatID" (click)="GetTelegramRequestCode()">Синхронизация с телеграмм</button>
+        <span class="telegram-request" *ngIf="telegramRequest">Добавьте телеграмм бота: </span>
+        <span class="telegram-request telegram-request--can-copy" *ngIf="telegramRequest" (click)="copyMessage('@HSTavernDubnaBot')">
+          <mat-icon>file_copy</mat-icon>
+          <strong>@HSTavernDubnaBot</strong>
+        </span>
+        <span class="telegram-request" *ngIf="telegramRequest">И отправте ему сообщение:</span>
+        <span class="telegram-request telegram-request--can-copy" *ngIf="telegramRequest" (click)="copyMessage()">
+          <mat-icon>file_copy</mat-icon>
+          <strong>/request</strong> {{telegramRequest}}</span>
         <button mat-raised-button color="warn" *ngIf="profile !== null" (click)="logout()">Выход</button>
         <button mat-raised-button color="accent" *ngIf="profile === null" routerLink="/login" routerLinkActive="active">Вход</button>
       </div>
