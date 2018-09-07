@@ -34,6 +34,10 @@ export class TournamentsPageComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  help() {
+    this.router.navigate(['/tournaments/help']);
+  }
+
   async GetTelegramRequestCode() {
     this.telegramRequest = await this.userService.telegramRequest();
   }

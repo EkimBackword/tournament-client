@@ -26,6 +26,7 @@
         <h3 *ngIf="profile === null">Гость</h3>
       </div>
       <div class="body-user__actions">
+        <button mat-raised-button color="primary" (click)="help()">Инструкция</button>
         <button mat-raised-button color="primary" *ngIf="!isUserInvisible" (click)="toogleUserInvisible()">
           Скрыть панель
         </button>
@@ -44,6 +45,7 @@
           <mat-icon>file_copy</mat-icon>
           <strong>/request</strong> {{telegramRequest}}</span>
         <button mat-raised-button color="warn" *ngIf="profile !== null" (click)="logout()">Выход</button>
+        
         <button mat-raised-button color="accent" *ngIf="profile === null" routerLink="/login" routerLinkActive="active">Вход</button>
       </div>
     </div>

@@ -6,12 +6,14 @@ import { TournamentsListPageComponent } from './tournaments-list-page/tournament
 import { TournamentDetailsPageComponent } from './tournament-details-page/tournament-details-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { TournamentsPageComponent } from './tournaments-page/tournaments-page.component';
+import { TournamentHelpComponent } from './tournament-help/tournament-help.component';
 
 const tournamentsRoutes: Routes = [
   { path: 'tournaments', component: TournamentsPageComponent,
     children: [
       { path: '', component: TournamentsListPageComponent },
-      { path: ':tournamentId', component: TournamentDetailsPageComponent }
+      { path: 'help', component: TournamentHelpComponent },
+      { path: ':tournamentId', component: TournamentDetailsPageComponent },
     ]
   },
 ];
@@ -26,6 +28,7 @@ const tournamentsRoutes: Routes = [
     TournamentsPageComponent,
     TournamentsListPageComponent,
     TournamentDetailsPageComponent,
+    TournamentHelpComponent,
   ],
   exports: [
     RouterModule
