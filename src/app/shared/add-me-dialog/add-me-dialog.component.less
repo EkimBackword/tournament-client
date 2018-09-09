@@ -34,7 +34,22 @@ mat-dialog-content {
     }
     .deck--is-selected {
         opacity: 1;
+        background-color: fade(@background-yellow, 50%);
     }
+
+    .deck--is-extra {
+        background-color: fade(@background-yellow, 80%);
+    }
+
+    .extra-info {
+        margin-left: 8px;
+    }
+}
+
+.additional-info {
+    font-size: 14px;
+    font-weight: 300;
+    color: @color-grey-hover;
 }
 
 mat-dialog-actions {

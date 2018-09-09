@@ -1,13 +1,16 @@
-<h2 mat-dialog-title>Выберите классы</h2>
+<h2 mat-dialog-title>Выберите классы ({{selectedCount}}/{{data.DeckCount}})</h2>
 <mat-dialog-content>
   <div class="deck" *ngFor="let deck of DECK_CLASSES"
-    [class.deck--is-selected]="deck.select"
-    (click)="deck.select = !deck.select"
+  [class.deck--is-selected]="deck.select"
+  [class.deck--is-extra]="deck.extra"
+  (click)="selectDeck(deck)"
   >
-    <img width="24px" src="assets/img/classes/{{deck.id.toLowerCase()}}.png">
-    <span>{{deck.title}}</span>
-  </div>
+  <img width="24px" src="assets/img/classes/{{deck.id.toLowerCase()}}.png">
+  <span>{{deck.title}}</span>
+  <span class='extra-info' *ngIf='deck.extra'>⚠️ Доп. колода</span>
+</div>
 </mat-dialog-content>
+<span class='additional-info'>p.s. Поменткой "⚠️ Доп. колода" обозночается 4-ая дополнительная колода для плей-офф. Её вы выбираете в последнюю очередь.</span>
 <mat-dialog-actions>
   <button mat-raised-button color="warn" mat-dialog-close>Отмена</button>
   <button mat-raised-button color="primary" [disabled]="!isCorrect" (click)="closeDialog()">Зарегистрироваться</button>

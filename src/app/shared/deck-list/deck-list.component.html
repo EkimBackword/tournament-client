@@ -1,6 +1,6 @@
-<div class="deck-list__item" *ngFor="let deck of _deckList" (click)="select(deck)">
+<div class="deck-list__item" *ngFor="let deck of _deckList; let i = index" (click)="select(deck)">
   <div class="img" [class.banned]="deck === BannedDeck">
     <img width="24px" src="assets/img/classes/{{deck.toLowerCase()}}.png" >
   </div>
-  <span>{{deckName(deck)}}</span>
+  <span><span *ngIf="i === 3"> ⚠️ </span> {{deckName(deck)}}</span>
 </div>

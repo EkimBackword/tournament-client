@@ -2,10 +2,11 @@
 <mat-dialog-content>
   <div class="request" *ngFor="let request of list; let i = index">
 
-    <h4 class="title">Матч {{request.ID}}</h4>
-    <span class="subtitle">1) Выберите колоду противника, которую вы хотите забанить. Затем нажмите кнопку сохранить.</span>
-    <span class="subtitle">2) Дождитесь выбора противника.</span>
-    <span class="subtitle">3) Сыграёте с противником матчи.</span>
+    <h4 class="title">Матч ID: {{request.ID}}</h4>
+    <span class="subtitle">1) Выберите колоду противника, которую вы хотите забанить. Затем нажмите кнопку сохранить. </span>
+    <span class="subtitle">p.s. Помните что в группе мы не баним 4-ую колоду (⚠️), так как она является дополнительно для плай-офф.</span>
+    <span class="subtitle">2) Дождитесь выбора противника. </span>
+    <span class="subtitle">3) Сыграёте с противником матчи. </span>
     <span class="subtitle">4) После завершения матчей сообщите о результате, написав в поле "Результат". Например, "Выиграл 3-2"</span>
 
     <div class="gamer-info">
@@ -43,7 +44,7 @@
       [(ngModel)]="request.GamerResultInfo">
     </mat-form-field>
 
-    <button mat-raised-button color="accent" (click)="save(request)">Сохранить (Матч {{request.ID}})</button>
+    <button mat-raised-button color="accent" (click)="save(request)">Сохранить (Матч ID {{request.ID}})</button>
 
     <mat-divider></mat-divider>
 
