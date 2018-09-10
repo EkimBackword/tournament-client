@@ -75,18 +75,23 @@
         text-align: justify;
         align-self: center;
 
-        img {
+        a {
             margin: 0 auto;
             align-self: center;
-            width: 60%;
-            opacity: .35;
-            transition: all .5s ease-in-out;
+            width: 50%;
+            outline: none;
 
-            &:hover {
-                opacity: 1;
-                width: 70%;
+            img {
+                width: 100%;
+                opacity: .35;
+                transition: all .5s ease-in-out;
+    
+                &:hover {
+                    opacity: 1;
+                }
             }
         }
+
 
         
     }
@@ -94,11 +99,15 @@
 
 @media (max-width: @screen-small) {
     .help-item .help-item__info {
-        img {
+        a {
             margin: 0 auto;
             align-self: center;
-            opacity: 1;
             width: 100%;
+
+            img {
+                width: 100%;
+                opacity: 1;
+            }
         }
     }
 }
