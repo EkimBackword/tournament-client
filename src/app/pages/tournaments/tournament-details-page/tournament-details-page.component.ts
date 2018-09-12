@@ -20,6 +20,7 @@ export class TournamentDetailsPageComponent implements OnInit {
   tournament: ITournament;
   profile: IUser;
   isMember: boolean;
+  isAdmin: boolean;
   showMember: boolean;
 
   singleData = {
@@ -62,6 +63,7 @@ export class TournamentDetailsPageComponent implements OnInit {
       return `${member.User.BattleTag}:${member.UserID}:${member.DeckList}`;
     });
     this.isMember = this.profile && this.tournament && this.tournament.Members.some(m => m.UserID === this.profile.ID);
+    this.isAdmin = this.profile && this.tournament && this.tournament.UserID === this.profile.ID;
     this.data = JSON.parse(this.tournament.JsonData);
     if ( this.data.groups === void 0 ) {
       this.data = {

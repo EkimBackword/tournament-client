@@ -33,7 +33,8 @@
     <div class="member-list" *ngIf="showMember">
         <div class="member-list__item" *ngFor="let member of tournament.Members">
             <span>{{member.User.BattleTag}}</span>
-            <app-deck-list [deckList]='member.DeckList'></app-deck-list>
+            <p style="margin-left: 8px" *ngIf="!isMember && tournament.Status === 0 && !isAdmin">Для того, чтобы узнать выбранные классы, нужно быть одним из участников турнира.</p>
+            <app-deck-list *ngIf="(profile && tournament && profile !== null && profile.ID === tournament.UserID) || isMember || tournament.Status !== 0" [deckList]='member.DeckList'></app-deck-list>
         </div>
     </div>
 </div>
