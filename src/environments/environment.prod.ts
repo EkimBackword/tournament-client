@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: 'http://api.tavern.mzharkov.ru'
+  backendUrl: 'https://api.tavern.mzharkov.ru'
 };
