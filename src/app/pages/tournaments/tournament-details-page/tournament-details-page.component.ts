@@ -3,7 +3,7 @@ import { TournamentService, ITournament, TournamentStatusDescription, Tournament
 import { UserService, IUser } from '../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { AddMeDialogComponent } from '../../../shared/add-me-dialog/add-me-dialog.component';
+import { AddMeDialogComponent, IAddData } from '../../../shared/add-me-dialog/add-me-dialog.component';
 import { BanRequestListDialogComponent } from '../../../shared/ban-request-list-dialog/ban-request-list-dialog.component';
 import { UiStateService } from '../../../services/ui-state.service';
 
@@ -184,11 +184,17 @@ export class TournamentDetailsPageComponent implements OnInit {
 
   }
 
-  async addMe() {
+  async addMe(isEdit = false) {
+    const data: IAddData = {
+      DeckCount: this.tournament.DeckCount,
+      isEdit: isEdit
+    };
+    const member = this.tournament.Members.find(m => m.UserID === this.profile.ID);
+    if (isEdit && member) {
+      data.DeckList = member.DeckList;
+    }
     const dialogRef = this.dialog.open(AddMeDialogComponent, {
-      data: {
-        DeckCount: this.tournament.DeckCount
-      },
+      data: data,
       height: '600px',
       width: '400px',
     });
@@ -196,11 +202,19 @@ export class TournamentDetailsPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         try {
-          await this.tournamentService.addMember(
-            this.tournament.ID,
-            this.profile.ID,
-            result
-          );
+          if (isEdit && member) {
+            await this.tournamentService.editMember(
+              this.tournament.ID,
+              member.ID,
+              result
+            );
+          } else {
+            await this.tournamentService.addMember(
+              this.tournament.ID,
+              this.profile.ID,
+              result
+            );
+          }
         } catch (response) {
           this.uiState.showMessage({
             title: 'Ошибка добавления',

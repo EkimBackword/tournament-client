@@ -68,6 +68,16 @@ export class TournamentService {
       throw e;
     }
   }
+  public async editMember(ID: number, memberID: any, Decks: string[]) {
+    try {
+      return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/edit-member`, {
+        memberID,
+        Decks
+      }).toPromise();
+    } catch (e) {
+      throw e;
+    }
+  }
   public async getBanRequestList(ID: number, userId: any) {
     try {
       return await this.http.post<IBanRequest[]>(`${environment.backendUrl}/tournament/${ID}/get-ban-request-list`, {

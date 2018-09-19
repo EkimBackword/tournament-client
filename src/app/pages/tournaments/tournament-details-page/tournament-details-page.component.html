@@ -22,6 +22,7 @@
 </div>
 <div class="actions" *ngIf="profile !== null && tournament">
     <button mat-raised-button color="primary" *ngIf="!isMember && tournament.Status === 0" (click)="addMe()">Зарегистрироваться в турнире</button>
+    <button mat-raised-button color="primary" *ngIf="isMember && tournament.Status === 0" (click)="addMe(true)">Поменять классы</button>
     <button mat-raised-button color="primary" *ngIf="isMember && tournament.Status === 1" (click)="banRequestList()">Список моих матчей</button>
 </div>
 <div *ngIf="tournament && tournament.Members && tournament.Members.length > 0">
