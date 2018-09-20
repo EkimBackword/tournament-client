@@ -21,11 +21,22 @@ export class AddMeDialogComponent implements OnInit {
   ];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: IAddData,
     public dialogRef: MatDialogRef<AddMeDialogComponent>
   ) { }
 
   ngOnInit() {
+    if (this.data.isEdit) {
+      this.data.DeckList.split(', ').forEach((d, key) => {
+        const _deck = this.DECK_CLASSES.find(deck => deck.id === d);
+        if (_deck) {
+          _deck.select = true;
+          if (key === 3) {
+            _deck.extra = true;
+          }
+        }
+      });
+    }
   }
 
   get isCorrect() {
@@ -34,7 +45,6 @@ export class AddMeDialogComponent implements OnInit {
   get selectedCount() {
     return this.DECK_CLASSES.filter(c => c.select).length;
   }
-  
 
   closeDialog() {
     if (this.isCorrect) {
@@ -44,7 +54,9 @@ export class AddMeDialogComponent implements OnInit {
 
   selectDeck(deck) {
     if (deck.select) {
-      deck.extra = false;
+      this.DECK_CLASSES.forEach(d => {
+        d.extra = false;
+      });
     }
 
     deck.select = !deck.select;
@@ -54,4 +66,11 @@ export class AddMeDialogComponent implements OnInit {
     }
   }
 
+}
+
+
+export interface IAddData {
+  DeckCount: number;
+  DeckList?: string;
+  isEdit?: boolean;
 }
