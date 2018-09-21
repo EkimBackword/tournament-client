@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "pscp -r -i ~\\.ssh\\digital.ppk dist\\ root@mzharkov.ru:/var/www/taverna-svoi/tavernApp/dist",
+    "deploy-work": "pscp -r -i C:\\Users\\ZharkovMike\\.ssh\\digital.ppk dist\\ root@mzharkov.ru:/var/www/taverna-svoi/tavernApp/dist"
   },
   "private": true,
   "dependencies": {
