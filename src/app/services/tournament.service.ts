@@ -47,11 +47,12 @@ export class TournamentService {
         throw e;
     }
   }
-  public async sendOpponentInfo(ID: number, gamerID: any, opponentID: any) {
+  public async sendOpponentInfo(ID: number, gamerID: any, opponentID: any, round: string) {
     try {
       return await this.http.post<IBanRequest>(`${environment.backendUrl}/tournament/${ID}/send-opponent-info`, {
           gamerID,
-          opponentID
+          opponentID,
+          round
       }).toPromise();
     } catch (e) {
       console.log(e);

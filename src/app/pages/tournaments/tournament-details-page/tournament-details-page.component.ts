@@ -159,7 +159,8 @@ export class TournamentDetailsPageComponent implements OnInit {
         const banRequest = await this.tournamentService.sendOpponentInfo(
           this.tournamentId,
           array[0],
-          array[1]
+          array[1],
+          type
         );
         item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
         if (type === 'group') {

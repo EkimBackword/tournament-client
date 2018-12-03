@@ -34,9 +34,9 @@ export class BanRequestListDialogComponent implements OnInit {
       return r;
     });
 
-    if (!this.list.every(r => r.isShowen)) {
-      this.preLoad(0);
-    }
+    // if (!this.list.every(r => r.isShowen)) {
+    //   this.preLoad(0);
+    // }
   }
 
   async preLoad(count) {
