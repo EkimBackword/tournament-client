@@ -124,15 +124,14 @@ export class BracketsComponent implements OnInit, AfterViewInit {
       case 'entry-no-score':
       case 'entry-default-win':
       case 'entry-complete':
-        // console.
         const fields = data.split(':'); // 'EkimBackward#2744:1:Druid, Hunter, Mage, Warrior'
         if (fields.length === 3) {
           const deckList = fields[2].split(', ').reduce((prev, deck: string) => {
             return prev + ' <img width="21px" style="margin: -6px 0;" src="assets/img/classes/' + deck.toLowerCase() + '.png"> ';
           }, '');
-          container.append(deckList).append(fields[0]);
+          container.append(deckList).append( `<span class="battleTag" user-id="${fields[1]}">${fields[0]}</span>` );
         } else if (fields.length === 1) {
-          container.append(fields[0]);
+          container.append( `<span class="battleTag" user-id="null">${fields[0]}</span>` );
         } else {
           container.append('<i>INVALID</i>');
         }
@@ -158,7 +157,6 @@ export class BracketsComponent implements OnInit, AfterViewInit {
           selector: '.teamContainer',
           callback: (key, options) => {
             if (key === 'telegram') {
-              console.log([options.$trigger[0]]);
               const match = (options.$trigger[0] as HTMLElement).parentNode;
               const round = match.parentNode;
               const bracket =  round.parentNode;
@@ -168,21 +166,13 @@ export class BracketsComponent implements OnInit, AfterViewInit {
               const bracketIndex = (bracket as HTMLElement).classList.contains('bracket') ? 0 :
                                    (bracket as HTMLElement).classList.contains('finals') ? 2 : 1;
 
-
-              let result = [
-                (options.$trigger[0].children as HTMLCollection).item(0)['dataset']['teamid'],
-                (options.$trigger[0].children as HTMLCollection).item(1)['dataset']['teamid']
-              ];
-              result = result.map(index => {
-                const fields = this.data.teams[ Math.floor(index / 2) ][index % 2].split(':');
-                if (fields.length === 3) {
-                  return fields[1];
-                }
-                return null;
-              });
-              console.log('OnSendOpponentInfo', result);
+              const players: any = $( options.$trigger[0] ).find( '.battleTag' );
+              const player1Id: any = players.get(0).attributes['user-id'].value;
+              const player2Id: any = players.get(1).attributes['user-id'].value;
+              let result = [player1Id, player2Id].map(id => id === 'null' ? null : id);
+              result = result.concat([bracketIndex, roundIndex, matchIndex]);
               this.zone.run(() => {
-                this.OnSendOpponentInfo.next(result.concat([bracketIndex, roundIndex, matchIndex]));
+                this.OnSendOpponentInfo.next(result);
               });
             }
           },
@@ -208,7 +198,7 @@ export class BracketsComponent implements OnInit, AfterViewInit {
   }
 
   protected _onChange(data) {
-    console.log(data);
+    // console.log(data);
     this.initData = data;
     this.OnChange.next(data);
   }

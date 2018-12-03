@@ -81,11 +81,14 @@ export class TournamentDetailsPageComponent implements OnInit {
     try {
       await this.tournamentService.upadeteTournament(this.tournamentId, this.tournament.Title, JSON.stringify(this.data));
     } catch (response) {
-      this.uiState.showMessage({
-        title: 'Ошибка обновления данных',
-        message: response.error.message,
-        type: 'error'
-      });
+      console.warn(response);
+      if (response && response.error) {
+        this.uiState.showMessage({
+          title: 'Ошибка обновления данных',
+          message: response.error.message,
+          type: 'error'
+        });
+      }
     }
   }
 
@@ -134,55 +137,40 @@ export class TournamentDetailsPageComponent implements OnInit {
         this.tournament.Status
       );
     } catch (response) {
-      this.uiState.showMessage({
-        title: 'Ошибка добавления',
-        message: response.error.message,
-        type: 'error'
-      });
-    }
-  }
-  async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
-    try {
-      if (item.results[array[2]][array[3]][array[4]].length === 3) {
-        console.warn('Запрос уже создан');
-        this.uiState.showMessage({
-          title: 'Запрос уже создан',
-          message: 'Информация о матче уже была отправленна',
-          type: 'warn'
-        });
-        return;
-      }
-    } catch (e) {
-      console.warn(e);
-    }
-      try {
-        const banRequest = await this.tournamentService.sendOpponentInfo(
-          this.tournamentId,
-          array[0],
-          array[1],
-          type
-        );
-        item.results[array[2]][array[3]][array[4]] = item.results[array[2]][array[3]][array[4]].concat([banRequest.ID.toString()]);
-        if (type === 'group') {
-          const group = this.data.groups.find(g => g.name === item.name && g.data === item.data);
-          group.data = item;
-        } else {
-          this.data.playoff = item;
-        }
-      } catch (response) {
+      console.warn(response);
+      if (response && response.error) {
         this.uiState.showMessage({
           title: 'Ошибка добавления',
           message: response.error.message,
           type: 'error'
         });
       }
+    }
+  }
+  async sendOpponentInfo(array: any[], item: any, type: 'playoff' | 'group') {
+    try {
+      await this.tournamentService.sendOpponentInfo(
+        this.tournamentId,
+        array[0],
+        array[1],
+        type
+      );
       await this.updateTournament();
       this.uiState.showMessage({
         title: 'Отправленны данные',
         message: 'Информация о матче отправленна',
         type: 'success'
       });
-
+    } catch (response) {
+      console.warn(response);
+      if (response && response.error) {
+        this.uiState.showMessage({
+          title: 'Ошибка добавления',
+          message: response.error.message,
+          type: 'error'
+        });
+      }
+    }
   }
 
   async addMe(isEdit = false) {
@@ -217,11 +205,14 @@ export class TournamentDetailsPageComponent implements OnInit {
             );
           }
         } catch (response) {
-          this.uiState.showMessage({
-            title: 'Ошибка добавления',
-            message: response.error.message,
-            type: 'error'
-          });
+          console.warn(response);
+          if (response && response.error) {
+            this.uiState.showMessage({
+              title: 'Ошибка добавления',
+              message: response.error.message,
+              type: 'error'
+            });
+          }
         }
         this.load();
       }
